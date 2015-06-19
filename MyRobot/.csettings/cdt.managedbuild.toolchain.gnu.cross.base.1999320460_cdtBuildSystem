@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 5.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage2">
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<configuration artifactName="MyRobot" buildProperties="" description="" id="cdt.managedbuild.toolchain.gnu.cross.base.1999320460" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
+			<folderInfo id="cdt.managedbuild.toolchain.gnu.cross.base.1999320460.280910865" name="/" resourcePath="">
+				<toolChain id="cdt.managedbuild.toolchain.gnu.base.923171014" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.base">
+					<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base.904179914" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
+					<builder buildPath="${workspace_loc:/MyRobot}/Default" id="org.eclipse.cdt.build.core.internal.builder.1839839628" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+					<tool id="cdt.managedbuild.tool.gnu.archiver.base.824350579" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
+					<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1680519614" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
+						<option id="gnu.cpp.compiler.option.include.paths.1059082990" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+							<listOptionValue builtIn="false" value="/usr/local/include/player-2.0"/>
+						</option>
+						<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1990185894" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+					</tool>
+					<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.745025276" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
+						<option id="gnu.c.compiler.option.include.paths.1421301675" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+							<listOptionValue builtIn="false" value="/usr/local/include/player-2.0"/>
+						</option>
+						<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1029720967" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+					</tool>
+					<tool id="cdt.managedbuild.tool.gnu.c.linker.base.19609878" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
+					<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.945893492" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
+						<option id="gnu.cpp.link.option.paths.1264292134" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+							<listOptionValue builtIn="false" value="/usr/local/lib"/>
+						</option>
+						<option id="gnu.cpp.link.option.libs.340459835" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+							<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="playerc++"/>
+						</option>
+						<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1657123779" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+							<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+							<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+						</inputType>
+					</tool>
+					<tool id="cdt.managedbuild.tool.gnu.assembler.base.58303025" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base">
+						<option id="gnu.both.asm.option.include.paths.966799580" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+							<listOptionValue builtIn="false" value="/usr/local/include/player-2.0"/>
+						</option>
+						<inputType id="cdt.managedbuild.tool.gnu.assembler.input.2003550266" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+					</tool>
+				</toolChain>
+			</folderInfo>
+		</configuration>
+	</storageModule>
+</cproject>
