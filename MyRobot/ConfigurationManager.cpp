@@ -71,37 +71,37 @@ string ConfigurationManager::getMap()
 	return this->map;
 }
 
-int ConfigurationManager::getStartLocationX()
+float ConfigurationManager::getStartLocationX()
 {
 	return this->startLocationX;
 }
 
-int ConfigurationManager::getStartLocationY()
+float ConfigurationManager::getStartLocationY()
 {
 	return this->startLocationY;
 }
 
-int ConfigurationManager::getStartLocationYaw()
+float ConfigurationManager::getStartLocationYaw()
 {
 	return this->startLocationYaw;
 }
 
-int ConfigurationManager::getGoalX()
+float ConfigurationManager::getGoalX()
 {
 	return this->goalX;
 }
 
-int ConfigurationManager::getGoalY()
+float ConfigurationManager::getGoalY()
 {
 	return this->goalY;
 }
 
-int ConfigurationManager::getRobotSizeX()
+float ConfigurationManager::getRobotSizeX()
 {
 	return this->robotSizeX;
 }
 
-int ConfigurationManager::getRobotSizeY()
+float ConfigurationManager::getRobotSizeY()
 {
 	return this->robotSizeY;
 }

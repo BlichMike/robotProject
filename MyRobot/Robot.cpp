@@ -1,47 +1,48 @@
 #include "Robot.h"
+#include "ConfigurationManager.h"
 
 //C'Tor
 Robot::Robot(char* ip,int port)
 {
+	ConfigurationManager *configFile;
+	configFile = ConfigurationManager::getInstance();
 	playerClient  = new PlayerClient(ip,port);
 	positionProxy = new Position2dProxy(playerClient);
 	laserProxy    = new LaserProxy(playerClient);
 
-	robotPositionX    = 0.0;
-	robotPositionY    = 0.0;
-	robotPositionYaw  = 0.0;
+	robotPositionX    = configFile->getStartLocationX();
+	robotPositionY    = configFile->getStartLocationY();
+	robotPositionYaw  = configFile->getStartLocationYaw();
 
 	positionProxy->SetMotorEnable(true);
 }
 
-//A method which refreshe's the laser scan (read)
+//refreshes the laser scan (read)
 void Robot::refreshLaserScan()
 {
 	playerClient->Read();
 }
 
-//A method which converts a given laser degree to a parallel laser index
+//A method which converts a given laser degree to laser index
 int Robot::convertDegToIdx(int degree)
 {
 	return (degree*3);
 }
 
-//A method which converts a given laser index to a parallel laser degree
+//converts a given laser index to laser degree
 int Robot::convertIdxToDeg(int index)
 {
 	return (index/3);
 }
 
-/*************************************/
-/*         Setters & Getters         */
-/*************************************/
-//A method which set's the robot's speed
+// Getters and Setters
+// Sets the robot's speed
 void Robot::setRobotSpeed(double speed, double angle)
 {
 	positionProxy->SetSpeed(speed,angle);
 }
 
-//A method which set's & get's the robot's deltas
+// Sets & gets the robots deltas
 void Robot::getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float &deltaCoordinateYaw)
 {
 	float xPosition   = positionProxy->GetXPos();
@@ -57,7 +58,7 @@ void Robot::getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float
 	robotPositionYaw = yawPosition;
 }
 
-//A method which get's the laser scan at a specific index
+// Gets the laser scan at a specific index
 float Robot::getLaserByIdx(int laserIdx)
 {
 	if (laserIdx > 655 || laserIdx < 0)
