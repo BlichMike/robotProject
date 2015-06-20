@@ -1,32 +1,48 @@
 #include "Map.h"
+#include "ConfigurationManager.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include "lodepng.h"
+
+std::vector<unsigned char> image; //the raw pixels
+unsigned width, height, resolution;
 
 //Default C'Tor
 Map::Map()
 {
+	ConfigurationManager *configFile = ConfigurationManager::getInstance();
+
+	const char* mapPath = configFile->getMap();
+	resolution = configFile->getMapResolutionCM();
+
+	//decode
+	loadImage(mapPath);
+
+	int count = 0;
 	//Initialize the map (setting all cells to UNKNOWN (=2) value)
-	for (int i=0; i<MAP_HEIGHT;i++)
+	for (int i=0; i<height;i++)
 	{
-		for (int j=0; j<MAP_WIDTH;j++)
+		for (int j=0; j<width;j++)
 		{
-			map[i][j] = UNKNOWN;
+			// Check if the pixel is all white
+			if((image[count]==255)&&(image[count+1]==255)&&(image[count+2]==255)&&(image[count+3]==255)){
+				map[i][j] = FREE;
+			// If not all white then OBSTACLE
+			} else {
+				map[i][j] = OBSTACLE;
+			}
+			// + 4 because we work with RBGA for each pixel
+			count = count + 4;
 		}
 	}
-}
-
-//A method which updates a map's cell by a given X,Y coordinates & a value (0,1,2)
-void Map::updateMapCell(int xPosition,int yPosition,int cellValue)
-{
-	map[xPosition][yPosition] = cellValue;
 }
 
 //A method which returns a map's cell by a given X & Y coordinates
 void Map::getMapCellByPosition(float xPosition,float yPosition,int &x,int &y)
 {
-	x = ((int)xPosition)/MAP_RESOLUTION + MAP_HEIGHT/2;
-	y = ((int)yPosition)/MAP_RESOLUTION + MAP_WIDTH/2;
+	x = ((int)xPosition)/resolution + height/2;
+	y = ((int)yPosition)/resolution + width/2;
 }
 
 //A method which returns a map cell's value by a given X & Y coordinates
@@ -35,14 +51,11 @@ int Map::getMapCellValue(int xPosition,int yPosition)
 	return map[xPosition][yPosition];
 }
 
-//A method which prints a particle's map
-void Map::printParticleMap()
+void Map::loadImage(const char* filename)
 {
-    for (int i=0; i<100; i++)
-    {
-    	for (int j=0; j<100; j++)
-    		cout<<map[i][j];
+  //decode
+  unsigned error = lodepng::decode(image, width, height, filename);
 
-    	cout<<endl;
-    }
+  //if there's an error, display it
+  if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
