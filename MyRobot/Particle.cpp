@@ -22,11 +22,11 @@ void Particle::particleInit(float robotCoordinateX,float robotCoordinateY)
 
 	particleMap.getMapCellByPosition(particleCoordinateX,particleCoordinateY,xCellCoordinateByMap,yCellCoordinateByMap);
 
-	for (int i=-ROBOT_DIMENSION; i<ROBOT_DIMENSION; i++)
+/*	for (int i=-ROBOT_DIMENSION; i<ROBOT_DIMENSION; i++)
 	{
 		for (int j=-ROBOT_DIMENSION; j<ROBOT_DIMENSION; j++)
 			particleMap.updateMapCell(xCellCoordinateByMap + i,yCellCoordinateByMap + j, FREE);
-	}
+	}*/
 }
 
 //A method which updates a particle's belief, position and map
@@ -81,7 +81,7 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 				yObj = (j * sin(DEGREES_TO_RADIANS(convLaserIdxToAngle(i,laserCount,LASER_ANGLE_RANGE)) + particleCoordinateYaw)) + particleCoordinateY;
 
 				particleMap.getMapCellByPosition(xObj,yObj,xCellCoordinateByMap,yCellCoordinateByMap);
-
+/*
 				if (particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == UNKNOWN)
 				{
 					particleMap.updateMapCell(xCellCoordinateByMap,yCellCoordinateByMap,FREE);
@@ -95,7 +95,7 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 				else if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == FREE)
 				{
 					countHit++;
-				}
+				}*/
 			}
 		}
 		else
@@ -105,7 +105,8 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 
 			particleMap.getMapCellByPosition(xObj,yObj,xCellCoordinateByMap,yCellCoordinateByMap);
 
-			if (particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == UNKNOWN)
+			// NOT NEED TO BUIELD THE MAP ....
+/*			if (particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == UNKNOWN)
 			{
 				particleMap.updateMapCell(xCellCoordinateByMap,yCellCoordinateByMap,OBSTACLE);
 				countHit++;
@@ -118,7 +119,7 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 			{
 				particleMap.updateMapCell(xCellCoordinateByMap,yCellCoordinateByMap,OBSTACLE);
 				countMiss++;
-			}
+			}*/
 		}
 	}
 

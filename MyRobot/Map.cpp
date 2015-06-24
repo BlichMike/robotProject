@@ -7,17 +7,23 @@
 
 std::vector<unsigned char> image; //the raw pixels
 unsigned width, height, resolution;
+int** map;
 
 //Default C'Tor
 Map::Map()
 {
 	ConfigurationManager *configFile = ConfigurationManager::getInstance();
 
-	const char* mapPath = configFile->getMap();
+	string mapPath = configFile->getMap();
 	resolution = configFile->getMapResolutionCM();
 
 	//decode
 	loadImage(mapPath);
+
+	//define our map by the height and width
+	int** map = new int*[height];
+	for(int i = 0; i < height; ++i)
+		map[i] = new int[width];
 
 	int count = 0;
 	//Initialize the map (setting all cells to UNKNOWN (=2) value)
@@ -51,11 +57,36 @@ int Map::getMapCellValue(int xPosition,int yPosition)
 	return map[xPosition][yPosition];
 }
 
-void Map::loadImage(const char* filename)
+//This method load the pic to map[][]
+void Map::loadImage(string filename)
 {
   //decode
   unsigned error = lodepng::decode(image, width, height, filename);
 
   //if there's an error, display it
   if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+}
+
+//return height
+int Map::getHeight()
+{
+	return height;
+}
+
+//return width
+int Map::getWidth()
+{
+	return width;
+}
+
+//A method which prints a particle's map
+void Map::printParticleMap()
+{
+    for (int i=0; i<height; i++)
+    {
+    	for (int j=0; j<width; j++)
+    		cout<<map[i][j];
+
+    	cout<<endl;
+    }
 }
