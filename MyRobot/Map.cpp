@@ -17,11 +17,14 @@ Map::Map()
 	string mapPath = configFile->getMap();
 	resolution = configFile->getMapResolutionCM();
 
+
+	//TODO MICHAEL NEED TO FIX
+	mapPath = "hospital_section2.png";
 	//decode
 	loadImage(mapPath);
 
 	//define our map by the height and width
-	int** map = new int*[height];
+	map = new int*[height];
 	for(int i = 0; i < height; ++i)
 		map[i] = new int[width];
 
