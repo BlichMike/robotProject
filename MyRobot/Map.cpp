@@ -19,7 +19,7 @@ Map::Map()
 
 
 	//TODO MICHAEL NEED TO FIX
-	mapPath = "hospital_section2.png";
+	mapPath = configFile->getMap();
 	//decode
 	loadImage(mapPath);
 
