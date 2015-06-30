@@ -1,4 +1,4 @@
-map: ~/Desktop/roboticLabMap.png
+map: ~hospital_section2.png
 startLocation: 0 0 0
 goal: 169 138
 robotSize: 30 30

@@ -21,12 +21,6 @@ void Particle::particleInit(float robotCoordinateX,float robotCoordinateY)
 	particleBelief = 1.0;
 
 	particleMap.getMapCellByPosition(particleCoordinateX,particleCoordinateY,xCellCoordinateByMap,yCellCoordinateByMap);
-
-	for (int i=-ROBOT_DIMENSION; i<ROBOT_DIMENSION; i++)
-	{
-		for (int j=-ROBOT_DIMENSION; j<ROBOT_DIMENSION; j++)
-			particleMap.updateMapCell(xCellCoordinateByMap + i,yCellCoordinateByMap + j, FREE);
-	}
 }
 
 //A method which updates a particle's belief, position and map
@@ -82,14 +76,8 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 
 				particleMap.getMapCellByPosition(xObj,yObj,xCellCoordinateByMap,yCellCoordinateByMap);
 
-				if (particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == UNKNOWN)
+				if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == OBSTACLE)
 				{
-					particleMap.updateMapCell(xCellCoordinateByMap,yCellCoordinateByMap,FREE);
-					countHit++;
-				}
-				else if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == OBSTACLE)
-				{
-					particleMap.updateMapCell(xCellCoordinateByMap,yCellCoordinateByMap,FREE);
 					countMiss++;
 				}
 				else if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == FREE)
@@ -105,18 +93,13 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 
 			particleMap.getMapCellByPosition(xObj,yObj,xCellCoordinateByMap,yCellCoordinateByMap);
 
-			if (particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == UNKNOWN)
-			{
-				particleMap.updateMapCell(xCellCoordinateByMap,yCellCoordinateByMap,OBSTACLE);
-				countHit++;
-			}
-			else if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == OBSTACLE)
+			// NOT NEED TO BUIELD THE MAP ....
+			if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == OBSTACLE)
 			{
 				countHit++;
 			}
 			else if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == FREE)
 			{
-				particleMap.updateMapCell(xCellCoordinateByMap,yCellCoordinateByMap,OBSTACLE);
 				countMiss++;
 			}
 		}

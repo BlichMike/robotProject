@@ -44,7 +44,8 @@ bool ConfigurationManager::readConfigFile(string fileName)
 		getline(myfile,mapResolutionCMLine);
 		getline(myfile,gridResolutionCMLine);
 
-		this->map = mapLine.substr(mapLine.find('~'));
+		this->map = mapLine.substr(mapLine.find('~') + 1);
+		this->map.erase(this->map.length() - 1);
 		startLocationLine = startLocationLine.substr(startLocationLine.find(' '));
 		stringstream location(startLocationLine);
 		location >> (this->startLocationX) >> (this->startLocationY) >> (this->startLocationYaw);
@@ -54,6 +55,10 @@ bool ConfigurationManager::readConfigFile(string fileName)
 		robotSizeLine = robotSizeLine.substr(robotSizeLine.find(' '));
 		stringstream robotSize(robotSizeLine);
 		robotSize >> (this->robotSizeX) >> (this->robotSizeY);
+		stringstream mapResolutionCM(mapResolutionCMLine);
+		mapResolutionCM >> (this->mapResolutionCM);
+		stringstream gridResolutionCM(gridResolutionCMLine);
+		gridResolutionCM >> (this->gridResolutionCM);
 
 	    myfile.close();
 	    return true;
