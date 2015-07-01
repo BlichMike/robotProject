@@ -5,7 +5,7 @@
 #include "Map.h"
 using namespace std;
 
-queue<Node> PathPlanner(Node startPoint,Node endPoint,Map map)
+queue<Node> PathPlanner(Node startPoint,Node endPoint)
 {
 	//-1-1|-1,0|-1,1
 	// 0-1| 0 0| 0,1
@@ -55,13 +55,13 @@ queue<Node> PathPlanner(Node startPoint,Node endPoint,Map map)
 				if (!(horizontal ==0 && vertical ==0))
 				{
 					// Check the x position in the map
-					if (currentNode.getxPos() + horizontal > 0 && currentNode.getxPos() + horizontal < map.getWidth())
+					if (currentNode.getxPos() + horizontal > 0 && currentNode.getxPos() + horizontal < Map().getWidth())
 					{
 						// Check the y position in the map
-						if (currentNode.getyPos() + vertical < 0 && currentNode.getyPos() + vertical < map.getHeight())
+						if (currentNode.getyPos() + vertical < 0 && currentNode.getyPos() + vertical < Map().getHeight())
 						{
 							// Check if there is not obsticale
-							if (!((map.getMapCellValue(currentNode.getxPos()+ horizontal, currentNode.getyPos()+vertical))==Obstical))
+							if (!((Map().getMapCellValue(currentNode.getxPos()+ horizontal, currentNode.getyPos()+vertical))==Obstical))
 							{
 								// Set boolean if cell was found
 								bool cellfound = false;
