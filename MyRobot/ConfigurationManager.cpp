@@ -55,8 +55,10 @@ bool ConfigurationManager::readConfigFile(string fileName)
 		robotSizeLine = robotSizeLine.substr(robotSizeLine.find(' '));
 		stringstream robotSize(robotSizeLine);
 		robotSize >> (this->robotSizeX) >> (this->robotSizeY);
+		mapResolutionCMLine = mapResolutionCMLine.substr(mapResolutionCMLine.find(' '));
 		stringstream mapResolutionCM(mapResolutionCMLine);
 		mapResolutionCM >> (this->mapResolutionCM);
+		gridResolutionCMLine = gridResolutionCMLine.substr(gridResolutionCMLine.find(' '));
 		stringstream gridResolutionCM(gridResolutionCMLine);
 		gridResolutionCM >> (this->gridResolutionCM);
 
