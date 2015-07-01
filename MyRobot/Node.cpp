@@ -1,31 +1,38 @@
 #include "Node.h"
+#include <math.h>
 
-Node::Node(int xp, int yp, int d, int p)
+Node::Node(Node lastNode,int CurrXPosition, int CurrYPosition,int Level)
 {
-	xPos=xp;
-	yPos=yp;
-	level=d;
-	priority=p;
+	Node fromWhereGetNode = lastNode;
+	xPos=CurrXPosition;
+	yPos=CurrYPosition;
+	level=Level; // level
+	estimateDist=0; // Distance from the end
+	priority=0; // sum of the level and the estimate
+	checked=false; // Check if the node was checked
 }
-
-int getxPos() const {return xPos;}
-int getyPos() const {return yPos;}
-int getLevel() const {return level;}
-int getPriority() const {return priority;}
-
-void updatePriority(const int & xDest, const int & yDest)
+void Node::updateChecked(bool check)
 {
-	priority=level+estimate(xDest, yDest)*10; //A*
+	checked = check;
+}
+void Node::UpdateData(int horizontal, int vertical, const int & xDest, const int & yDest)
+{
+	nextLevel(horizontal,vertical);
+	updatePriority(xDest,yDest);
+}
+void Node::updatePriority(const int & xDest, const int & yDest)
+{
+	priority=level + estimate(xDest, yDest)*10; //A*
 }
 
 // give better priority to going strait instead of diagonally
-void nextLevel(const int & i) // i: direction
+void Node::nextLevel(int horizontal, int vertical) // i: direction
 {
-	level+=(dir==8?(i%2==0?10:14):10);
+	level+=(((horizontal + vertical)%2)==0)?10:14;
 }
 
 // Estimation function for the remaining distance to the goal.
-const int & estimate(const int & xDest, const int & yDest) const
+const int & Node::estimate(const int & xDest, const int & yDest)
 {
 	static int xd, yd, d;
 	xd=xDest-xPos;
@@ -33,12 +40,6 @@ const int & estimate(const int & xDest, const int & yDest) const
 
     // Euclidian Distance
     d=static_cast<int>(sqrt(xd*xd+yd*yd));
-
-    // Manhattan distance
-    //d=abs(xd)+abs(yd);
-
-    // Chebyshev distance
-    //d=max(abs(xd), abs(yd));
-
+    estimateDist= d;
     return(d);
 }
