@@ -5,7 +5,7 @@
 #include "Map.h"
 using namespace std;
 
-queue<Node> PathPlanner(Node startPoint,Node endPoint,Map map,vector<Node> AllFoundNodes)
+queue<Node> PathPlanner(Node startPoint,Node endPoint,Map map)
 {
 	//-1-1|-1,0|-1,1
 	// 0-1| 0 0| 0,1
@@ -14,7 +14,15 @@ queue<Node> PathPlanner(Node startPoint,Node endPoint,Map map,vector<Node> AllFo
 	// Vertical   =   |
 
 	// Horizontal=   -->
+
+	// Define the the first node
+	vector<Node> AllFoundNodes;
+	AllFoundNodes.push_back(startPoint);
+
+	// Set the obstical to 1
 	int Obstical = 1;
+
+	// Check if the robot get the destiny
 	bool FoundTheDestiny = false;
 
 	// While not found the destiny

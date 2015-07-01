@@ -6,5 +6,5 @@ class Astar
 {
 	public:
 
-	void PathPlanner(Node startPoint,Node endPoint,Map map,vector<Node> AllFoundNodes);
+	void PathPlanner(Node startPoint,Node endPoint,Map map);
 };
