@@ -10,6 +10,7 @@
 #ifndef MAP_H_
 #define MAP_H_
 #include <string>
+#include "Node.h"
 
 #define FREE 			0
 #define OBSTACLE 		1
@@ -18,6 +19,10 @@ using namespace std;
 
 class Map
 {
+	private :
+		void loadImage(string filename);
+
+		void saveImage(string filename,Node notesarr[]);
 	public:
 		Map();
 
@@ -31,7 +36,9 @@ class Map
 
 		void printParticleMap();
 
-		void loadImage(string filename);
+		void saveMapWithPathToPic(Node notesarr[]);
+
+
 };
 
 #endif /* MAP_H_ */

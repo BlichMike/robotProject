@@ -17,9 +17,6 @@ Map::Map()
 	string mapPath = configFile->getMap();
 	resolution = configFile->getMapResolutionCM();
 
-
-	//TODO MICHAEL NEED TO FIX
-	mapPath = configFile->getMap();
 	//decode
 	loadImage(mapPath);
 
@@ -63,11 +60,45 @@ int Map::getMapCellValue(int xPosition,int yPosition)
 //This method load the pic to map[][]
 void Map::loadImage(string filename)
 {
-  //decode
-  unsigned error = lodepng::decode(image, width, height, filename);
+	//decode
+	unsigned error = lodepng::decode(image, width, height, filename);
 
-  //if there's an error, display it
-  if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+	//if there's an error, display it
+	if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+}
+
+//This methode save the vector back to the pic with the path
+void Map::saveImage(string filename,Node notesarr[])
+{
+	std::vector<unsigned char> newImage = image;
+
+	int size = (sizeof(notesarr)/sizeof(*notesarr));
+
+	//  color the path
+	for (unsigned int i = 0; size; i++)
+	{
+		Node curNode = notesarr[i];
+		int statBitPlace = (width*(curNode.getyPos()-1)*4)+(curNode.getxPos()*4)-4;
+		newImage[statBitPlace] = 8;
+		newImage[statBitPlace + 1] = 255;
+		newImage[statBitPlace + 2] = 2;
+		newImage[statBitPlace + 3] = 4;
+	}
+
+	//Encode the image
+	unsigned error = lodepng::encode(filename, newImage, width, height);
+
+	//if there's an error, display it
+	if(error) std::cout << "encoder error " << error << ": "<< lodepng_error_text(error) << std::endl;
+}
+
+//A methode which save back the map with path
+void Map::saveMapWithPathToPic(Node notesarr[])
+{
+	// Get list of dots.
+	string newMapPath = "mapWithPath.png";
+
+	saveImage(newMapPath,notesarr);
 }
 
 //return height
