@@ -1,10 +1,10 @@
 #include <vector>
 #include "Map.h"
 #include "Node.h"
-
+#include <queue>
 class Astar
 {
 	public:
 
-	void PathPlanner(Node startPoint,Node endPoint);
+	queue<Node> PathPlanner(Node startPoint,Node endPoint);
 };
