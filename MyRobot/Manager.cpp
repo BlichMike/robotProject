@@ -21,7 +21,7 @@ Manager::Manager(Robot* robot) :robot(robot)
 	behavior[2]->addNext(behavior[0]);
 	behavior[3]->addNext(behavior[0]);
 
-	slamAlgorithm = new SlamAlgorithm(robot->robotPositionX,robot->robotPositionY);
+	localizationManager = new LocalizationManager(robot->robotPositionX,robot->robotPositionY);
 }
 
 //A method that controls the robot performance
@@ -55,7 +55,7 @@ void Manager::Run()
 
 				robot->setRobotSpeed(0.0,0.0);
 
-				slamAlgorithm->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+				localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
 			}
 
 			countSlamExecutions++;
@@ -78,5 +78,5 @@ Manager::~Manager()
 	delete robot;
 	delete currentBehavior;
 	delete laserScan;
-	delete slamAlgorithm;
+	delete localizationManager;
 }
