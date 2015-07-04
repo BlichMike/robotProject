@@ -1,13 +1,5 @@
 /*************************************************************************************/
 /*                                                                                   */
-/*                     C l a s s  :  S l a m A l g o r i t h m                       */
-/*                     ----------------------------------------                      */
-/*                                                                                   */
-/* Description: A class which handles the particle's update (control's the slam -    */
-/*              system algorithm)                                                    */
-/*                                                                                   */
-/*************************************************************************************/
-/*                                                                                   */
 /* Methods: particlesInit            - A method which initializes & add a new        */
 /*                                     particle to the particle's vector (list)      */
 /*                                                                                   */
@@ -18,8 +10,8 @@
 /*                                     the maximum belief (of all of the particles)  */
 /*                                                                                   */
 /*************************************************************************************/
-#ifndef SLAMALGORITHM_H_
-#define SLAMALGORITHM_H_
+#ifndef LOCALIZATIONMMANAGER_H_
+#define LOCALIZATIONMMANAGER_H_
 
 #include "Particle.h"
 #include <libplayerc++/playerc++.h>
@@ -30,7 +22,7 @@
 
 typedef vector<Particle> particlesVector;
 
-class SlamAlgorithm
+class LocalizationManager
 {
 	int printParticlesInterval;
 
@@ -39,7 +31,7 @@ class SlamAlgorithm
 		//A list (vector) that holds all the particles (200 particles)
 		particlesVector particles;
 
-		SlamAlgorithm(float robotCoordinateX,float robotCoordinateY);
+		LocalizationManager(float robotCoordinateX,float robotCoordinateY);
 
 		void particlesInit(float robotCoordinateX,float robotCoordinateY);
 
@@ -48,4 +40,4 @@ class SlamAlgorithm
 		void prtParticleWithMaxBelief();
 };
 
-#endif /* SLAMALGORITHM_H_ */
+#endif /* LOCALIZATIONMMANAGER_H_ */

@@ -1,14 +1,14 @@
-#include "SlamAlgorithm.h"
+#include "LocalizationManager.h"
 
 //C'Tor
-SlamAlgorithm::SlamAlgorithm(float robotCoordinateX,float robotCoordinateY)
+LocalizationManager::LocalizationManager(float robotCoordinateX,float robotCoordinateY)
 {
 	printParticlesInterval = 0;
 	particlesInit(robotCoordinateX,robotCoordinateY);
 }
 
 //A method which initializes & add a new particle to the particle's vector (list)
-void SlamAlgorithm::particlesInit(float robotCoordinateX,float robotCoordinateY)
+void LocalizationManager::particlesInit(float robotCoordinateX,float robotCoordinateY)
 {
 	for (int particle = 0; particle < PARTICLES_COUNT; particle++)
 	{
@@ -19,7 +19,7 @@ void SlamAlgorithm::particlesInit(float robotCoordinateX,float robotCoordinateY)
 }
 
 //A method which updates all the particles that are stored in the particle's vector (list)
-void SlamAlgorithm::particlesUpdate(float deltaCoordinateX, float deltaCoordinateY, float deltaTetha,float laserScan[], int laserCount)
+void LocalizationManager::particlesUpdate(float deltaCoordinateX, float deltaCoordinateY, float deltaTetha,float laserScan[], int laserCount)
 {
 	particlesVector::iterator particlesBegin = particles.begin();
 	particlesVector::iterator particlesEnd = particles.end();
@@ -50,7 +50,7 @@ void SlamAlgorithm::particlesUpdate(float deltaCoordinateX, float deltaCoordinat
 }
 
 //A method which print's the particle that has the maximum belief (of all of the particles)
-void SlamAlgorithm::prtParticleWithMaxBelief()
+void LocalizationManager::prtParticleWithMaxBelief()
 {
 	unsigned int particleIdx;
 	int particleId;
