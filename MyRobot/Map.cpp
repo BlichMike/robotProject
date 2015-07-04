@@ -14,6 +14,7 @@ int** map;
 Map::Map(){
 	ConfigurationManager *configFile = ConfigurationManager::getInstance();
 	string mapPath = configFile->getMap();
+	resolution = configFile->getGridResolutionCM();
 	loadImage(mapPath);
 
 	int count = 0;
