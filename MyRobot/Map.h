@@ -23,6 +23,7 @@ class Map
 		void loadImage(string filename);
 
 		void saveImage(string filename,Node notesarr[]);
+
 	public:
 		Map();
 
