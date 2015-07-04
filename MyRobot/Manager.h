@@ -15,7 +15,7 @@
 
 #include "Robot.h"
 #include "Behaviors.h"
-#include "SlamAlgorithm.h"
+#include "LocalizationManager.h"
 
 #define LASER_READ 655
 
@@ -26,7 +26,7 @@ class Manager
 	Robot * robot;
 	Behaviors * behavior[4];
 	Behaviors * currentBehavior;
-	SlamAlgorithm * slamAlgorithm;
+	LocalizationManager * localizationManager;
 	float laserScan[LASER_READ];
 
 	public:
