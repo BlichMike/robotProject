@@ -29,7 +29,22 @@ Map::Map(){
 			// If not all white then OBSTACLE
 			} else {
 				map[i][j] = OBSTACLE;
-
+/*				if(i>0  && j>0)
+					try{map[i-1][j-1] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}
+				if(j>0)
+					try{map[i][j-1] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}
+				if(i<height && j>0)
+					try{map[i+1][j-1] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}
+				if(i>0)
+					try{map[i-1][j] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}
+				if(i<height)
+					try{map[i+1][j] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}
+				if(i>0 && j<width)
+					try{map[i-1][j+1] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}
+				if(j<width)
+					try{map[i][j+1] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}
+				if(i<height && j<width)
+					try{map[i+1][j+1] = OBSTACLE;}catch (exception& e){ cout << e.what() << '\n';}*/
 
 			}
 			// + 4 because we work with RBGA for each pixel
