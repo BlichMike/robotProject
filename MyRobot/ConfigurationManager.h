@@ -26,10 +26,6 @@ private:
 	float mapResolutionCM;
 	float gridResolutionCM;
 	static ConfigurationManager *single;
-	ConfigurationManager()
-	{
-		// private Constructor
-	}
 
 public:
 	static ConfigurationManager* getInstance();
@@ -44,6 +40,10 @@ public:
 	float getRobotSizeY();
 	float getMapResolutionCM();
 	float getGridResolutionCM();
+	ConfigurationManager()
+	{
+
+	}
 
 	~ConfigurationManager()
 	{
