@@ -3,6 +3,7 @@
 #include <queue>
 #include <ctime>
 #include "Map.h"
+#include "ConfigurationManager.h"
 using namespace std;
 
 queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
@@ -45,7 +46,7 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 
 		Node currentNode = AllFoundNodes[minPriorityIndexFound];
 		AllFoundNodes[minPriorityIndexFound].updateChecked(true);
-
+		// For debug
 		int size = (int)AllFoundNodes.size();
 
 		// Run for all Horizontal
@@ -58,62 +59,66 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 				if (!(horizontal ==0 && vertical ==0))
 				{
 
-					// Check the x position in the map
-					if (currentNode.getxPos() + horizontal > -Map().getWidth()/2 && currentNode.getxPos() + horizontal < Map().getWidth()/2)
+					float x = currentNode.getxPos();
+					float y = currentNode.getyPos();
+					float rzx = ConfigurationManager().getRobotSizeX();
+					float rzy = ConfigurationManager().getRobotSizeY();
+					float  h = horizontal * ConfigurationManager().getRobotSizeX();
+
+					float v = vertical * ConfigurationManager().getRobotSizeY();
+
+					// Check the position in the map
+					if (Map().isPositionInMap(currentNode.getxPos() + horizontal* ConfigurationManager().getRobotSizeX(),currentNode.getyPos() + vertical* ConfigurationManager().getRobotSizeY()))
 					{
-						// Check the y position in the map
-						if (currentNode.getyPos() + vertical > -Map().getHeight()/2 && currentNode.getyPos() + vertical < Map().getHeight()/2)
+						int xpos;
+						int ypos;
+
+						// Get the current position on the map
+						Map().getMapCellByPosition(currentNode.getxPos()+ horizontal, currentNode.getyPos()+vertical,xpos,ypos);
+						// Check if there is not obsticale
+						if (!((Map().getMapCellValue(xpos, ypos)==Obstical)))
 						{
-							int xpos;
-							int ypos;
-							Map().getMapCellByPosition(currentNode.getxPos()+ horizontal, currentNode.getyPos()+vertical,xpos,ypos);
-							// Check if there is not obsticale
-							if (!((Map().getMapCellValue(xpos, ypos)==Obstical)))
+							// Set boolean if cell was found
+							bool cellfound = false;
+							// Check this cell in the vector (if it already exists)
+							for (int index=0; index < (int)AllFoundNodes.size(); index++)
 							{
-								// Set boolean if cell was found
-								bool cellfound = false;
-
-								// Check this cell in the vector
-								for (int index=0; index < (int)AllFoundNodes.size(); index++)
+								// Check if cell was found
+								if (AllFoundNodes[index].getxPos() == currentNode.getxPos() + horizontal * ConfigurationManager().getRobotSizeX() &&
+									AllFoundNodes[index].getyPos() == currentNode.getyPos() + vertical * ConfigurationManager().getRobotSizeY())
 								{
-									// Check if cell was found
-									if (AllFoundNodes[index].getxPos() == currentNode.getxPos() + horizontal &&
-										AllFoundNodes[index].getyPos() == currentNode.getyPos() + vertical)
+									// Set found
+									cellfound = true;
+									// Set the new found node
+									Node newNode = Node(currentNode,
+													    currentNode.getxPos() + horizontal * ConfigurationManager().getRobotSizeX(),
+														currentNode.getyPos() + vertical * ConfigurationManager().getRobotSizeY(),
+														currentNode.getLevel());
+									newNode.UpdateData(newNode.getxPos(),newNode.getyPos(),endPoint.getxPos(),endPoint.getyPos());
+									// Check if the found Node priority is better than the old one
+									if (AllFoundNodes[index].getPriority() > newNode.getPriority())
 									{
-										// Set found
-										cellfound = true;
-										// Set the new found node
-										Node newNode = Node(currentNode,
-														    currentNode.getxPos() + horizontal,
-															currentNode.getyPos() + vertical,
-															currentNode.getLevel());
-
-										newNode.UpdateData(horizontal,vertical,endPoint.getxPos(),endPoint.getyPos());
-										// Check if the found Node priority is better than the old one
-										if (AllFoundNodes[index].getPriority() > newNode.getPriority())
-										{
-											AllFoundNodes[index] = newNode;
-										}
-
+										AllFoundNodes[index] = newNode;
 										break;
 									}
 								}
-								// Check if cell was not found
-								if (!cellfound)
-								{
-									Node newNode = Node(currentNode,
-														currentNode.getxPos() + horizontal,
-										   				currentNode.getyPos() + vertical,
-										     			currentNode.getLevel());
+							}
+							// Check if cell was not found
+							if (!cellfound)
+							{
+								Node newNode = Node(currentNode,
+													currentNode.getxPos() + horizontal * ConfigurationManager().getRobotSizeX(),
+													currentNode.getyPos() + vertical * ConfigurationManager().getRobotSizeY(),
+									     			currentNode.getLevel());
+								newNode.UpdateData(newNode.getxPos(),newNode.getyPos(),endPoint.getxPos(),endPoint.getyPos());
 									// Add new Node
-									AllFoundNodes.push_back(newNode);
-									// Check if the cell is the destiny
-									if (newNode.getxPos() == endPoint.getxPos() &&
-										newNode.getyPos() == endPoint.getyPos())
-									{
-										FoundTheDestiny = true;
-										break;
-									}
+								AllFoundNodes.push_back(newNode);
+								// Check if the cell is the destiny
+								if (newNode.getxPos() == endPoint.getxPos() &&
+									newNode.getyPos() == endPoint.getyPos())
+								{
+									FoundTheDestiny = true;
+									break;
 								}
 							}
 						}
@@ -122,7 +127,6 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 			}
 		}
 	}
-
 	// After Ended Create the path
 	int indexFinal =-1;
 
@@ -136,6 +140,7 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 			indexFinal = index;
 		}
 	}
+
 
 	// Set the queue of the path
 	queue<Node> finalPath;
