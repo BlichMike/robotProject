@@ -4,6 +4,11 @@
 #include "GoLeft.h"
 #include "GoInPlace.h"
 
+#include "ConfigurationManager.h"
+#include <queue>
+#include "Node.h"
+#include "Astar.h"
+
 //C'Tor
 Manager::Manager(Robot* robot) :robot(robot)
 {
@@ -32,6 +37,27 @@ void Manager::Run()
 
 	countSlamExecutions = 0;
 	currentBehavior     = behavior[0];
+
+
+	//*********************************
+
+	/*Node *n= NULL;
+	// need to be 0
+	float startx = ConfigurationManager().getStartLocationX();
+	// need to be 0
+	float starty = ConfigurationManager().getStartLocationY();
+	// need to be the end goal
+	float endx = ConfigurationManager().getGoalX();
+	// need to be the end goal
+	float endy= ConfigurationManager().getGoalY();
+	//Set current position
+	Node startPosition = Node(*n,startx,starty,0);
+	//Set current position
+	Node endPosition = Node(*n,endx,endy,0);
+
+	queue<Node> q = Astar().PathPlanner(startPosition,endPosition);
+	*/
+	//*********************************
 
 	robot->refreshLaserScan();
 
