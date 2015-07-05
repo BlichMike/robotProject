@@ -79,7 +79,7 @@ void Manager::Run()
 				for (int i = 0; i < LASER_READ; i++)
 					laserScan[i] = robot->getLaserByIdx(i);
 
-				robot->setRobotSpeed(0.0,0.0);
+				robot->setRobotSpeed(0.6,0.0);
 
 				localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
 			}
