@@ -53,6 +53,19 @@ Map::Map(){
 	}
 }
 
+bool Map::isPositionInMap(float xPosition,float yPosition)
+{
+	bool isInMap = true;
+	// Check for X position
+	if (((int)xPosition/resolution < -height/2) || ((int)xPosition/resolution > height/2))
+		isInMap = false;
+	// Check for Y position
+	if (((int)xPosition/resolution < -height/2) || ((int)xPosition/resolution > height/2))
+		isInMap = false;
+	// return result
+	return isInMap;
+}
+
 //A method which returns a map's cell by a given X & Y coordinates
 void Map::getMapCellByPosition(float xPosition,float yPosition,int &x,int &y){
 	x = ((int)xPosition)/resolution + height/2;

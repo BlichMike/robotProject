@@ -24,6 +24,8 @@ class Map
 	public:
 		Map();
 
+		bool isPositionInMap(float xPosition,float yPosition);
+
 		void getMapCellByPosition(float xPosition,float yPosition,int &x,int &y);
 
 		int getMapCellValue(int xPosition,int yPosition);
