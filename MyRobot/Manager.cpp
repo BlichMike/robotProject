@@ -40,23 +40,24 @@ void Manager::Run()
 
 
 	//*********************************
-
-	/*Node *n= NULL;
+	ConfigurationManager *configFile;
+	configFile = ConfigurationManager::getInstance();
+	Node *n= NULL;
 	// need to be 0
-	float startx = ConfigurationManager().getStartLocationX();
+	int startx = configFile->getStartLocationX();
 	// need to be 0
-	float starty = ConfigurationManager().getStartLocationY();
+	int starty = configFile->getStartLocationY();
 	// need to be the end goal
-	float endx = ConfigurationManager().getGoalX();
+	int endx = configFile->getGoalX();
 	// need to be the end goal
-	float endy= ConfigurationManager().getGoalY();
+	int endy= configFile->getGoalY();
 	//Set current position
 	Node startPosition = Node(*n,startx,starty,0);
 	//Set current position
 	Node endPosition = Node(*n,endx,endy,0);
 
 	queue<Node> q = Astar().PathPlanner(startPosition,endPosition);
-	*/
+
 	//*********************************
 
 	robot->refreshLaserScan();

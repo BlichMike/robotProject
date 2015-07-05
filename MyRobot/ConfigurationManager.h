@@ -16,30 +16,30 @@ class ConfigurationManager {
 
 private:
 	string map;
-	float startLocationX;
-	float startLocationY;
-	float startLocationYaw;
-	float goalX;
-	float goalY;
-	float robotSizeX;
-	float robotSizeY;
-	float mapResolutionCM;
-	float gridResolutionCM;
+	int startLocationX;
+	int startLocationY;
+	int startLocationYaw;
+	int goalX;
+	int goalY;
+	int robotSizeX;
+	int robotSizeY;
+	int mapResolutionCM;
+	int gridResolutionCM;
 	static ConfigurationManager *single;
 
 public:
 	static ConfigurationManager* getInstance();
 	bool readConfigFile(string fileName);
 	string getMap();
-	float getStartLocationX();
-	float getStartLocationY();
-	float getStartLocationYaw();
-	float getGoalX();
-	float getGoalY();
-	float getRobotSizeX();
-	float getRobotSizeY();
-	float getMapResolutionCM();
-	float getGridResolutionCM();
+	int getStartLocationX();
+	int getStartLocationY();
+	int getStartLocationYaw();
+	int getGoalX();
+	int getGoalY();
+	int getRobotSizeX();
+	int getRobotSizeY();
+	int getMapResolutionCM();
+	int getGridResolutionCM();
 	ConfigurationManager()
 	{
 

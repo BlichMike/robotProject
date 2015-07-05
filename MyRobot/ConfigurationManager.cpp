@@ -78,47 +78,47 @@ string ConfigurationManager::getMap()
 	return this->map;
 }
 
-float ConfigurationManager::getStartLocationX()
+int ConfigurationManager::getStartLocationX()
 {
 	return this->startLocationX;
 }
 
-float ConfigurationManager::getStartLocationY()
+int ConfigurationManager::getStartLocationY()
 {
 	return this->startLocationY;
 }
 
-float ConfigurationManager::getStartLocationYaw()
+int ConfigurationManager::getStartLocationYaw()
 {
 	return this->startLocationYaw;
 }
 
-float ConfigurationManager::getGoalX()
+int ConfigurationManager::getGoalX()
 {
 	return this->goalX;
 }
 
-float ConfigurationManager::getGoalY()
+int ConfigurationManager::getGoalY()
 {
 	return this->goalY;
 }
 
-float ConfigurationManager::getRobotSizeX()
+int ConfigurationManager::getRobotSizeX()
 {
 	return this->robotSizeX;
 }
 
-float ConfigurationManager::getRobotSizeY()
+int ConfigurationManager::getRobotSizeY()
 {
 	return this->robotSizeY;
 }
 
-float ConfigurationManager::getMapResolutionCM()
+int ConfigurationManager::getMapResolutionCM()
 {
 	return this->mapResolutionCM;
 }
 
-float ConfigurationManager::getGridResolutionCM()
+int ConfigurationManager::getGridResolutionCM()
 {
 	return this->gridResolutionCM;
 }
