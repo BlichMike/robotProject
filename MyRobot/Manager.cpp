@@ -53,6 +53,7 @@ void Manager::Run()
 	int endy= configFile->getGoalY();
 	//Set current position
 	Node startPosition = Node(*n,startx,starty,0);
+	startPosition.updatePriority(endx,endy);
 	//Set current position
 	Node endPosition = Node(*n,endx,endy,0);
 
