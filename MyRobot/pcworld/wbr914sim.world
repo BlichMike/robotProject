@@ -39,6 +39,7 @@ map(
   name "lab"
 )
 
+
 # a block for gripping
 define puck model(
   size [ 0.08 0.08 ]
@@ -47,10 +48,20 @@ define puck model(
   gui_nose 0
   fiducial_return 10
 )
+
 puck( pose [169 138 -105.501 ] color "red" )
 wbr914
 (
   color "white"
   name "wbr914_1"
-  pose [ 362 305 20]
+  pose [ 7.00 -7.00 20]
 )
+
+
+
+
+
+
+
+
+
