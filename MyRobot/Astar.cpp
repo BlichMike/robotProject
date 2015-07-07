@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "ConfigurationManager.h"
 #include <math.h>
+#include <limits>
 using namespace std;
 
 queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
@@ -35,7 +36,7 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 	// While not found the destiny
 	while(!FoundTheDestiny)
 	{
-		int minPriority = 0;
+		int minPriority = numeric_limits<int>::max();
 		int minPriorityIndexFound = -1;
 		// Find the lowest priority node that haven't checked
 		for (int index=0; index < (int)AllFoundNodes.size(); index++)
@@ -117,9 +118,13 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 								newNode.UpdateData(newNode.getxPos(),newNode.getyPos(),endPoint.getxPos(),endPoint.getyPos());
 									// Add new Node
 								AllFoundNodes.push_back(newNode);
+
+
 								// Check if the cell is the destiny
-								if (newNode.getxPos() == endPoint.getxPos() &&
-									newNode.getyPos() == endPoint.getyPos())
+								if ((newNode.getxPos() + robotSizeX >= endPoint.getxPos()) &&
+									(newNode.getxPos() <= endPoint.getxPos() + robotSizeX) &&
+									(newNode.getyPos() + robotSizeY >= endPoint.getyPos()) &&
+									(newNode.getyPos() <= endPoint.getyPos() + robotSizeY))
 								{
 									FoundTheDestiny = true;
 									break;
@@ -148,6 +153,7 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 
 	// Set the queue of the path
 	queue<Node> finalPath;
+	int s = finalPath.size();
 	bool start = false;
 	// Set the last node
 	Node current = AllFoundNodes[indexFinal];
