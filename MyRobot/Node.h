@@ -13,8 +13,8 @@ class Node {
 	// From Where the node came from
 	Node *fromWhereGetNode;
 	// current position
-	float xPos;
-	float yPos;
+	int xPos;
+	int yPos;
 	// total distance already travelled to reach the node
 	int level;
 	// Total distance that need to step over to get to the end node
@@ -25,9 +25,9 @@ class Node {
 
 
 public:
-	Node(Node &lastNode,float CurrXPosition, float CurrYPosition,int Level);
-	float getxPos() const {return xPos;}
-	float getyPos() const {return yPos;}
+	Node(Node &lastNode,int CurrXPosition, int CurrYPosition,int Level);
+	int getxPos() const {return xPos;}
+	int getyPos() const {return yPos;}
 	int getLevel() const {return level;}
 	int getEstimate() const {return estimateDist;}
 	int getPriority() const {return priority;}
@@ -35,10 +35,10 @@ public:
 	bool IsChecked() {return checked;}
 
 	void updateChecked(bool check);
-	void UpdateData(int horizontal, int vertical, const float & xDest, const float & yDest);
-	void updatePriority(const float & xDest, const float & yDest);
+	void UpdateData(int horizontal, int vertical, const int & xDest, const int & yDest);
+	void updatePriority(const int & xDest, const int & yDest);
 	void nextLevel(int horizontal, int vertical);
-	const int & estimate(const float & xDest, const float & yDest);
+	const int & estimate(const int & xDest, const int & yDest);
 };
 
 #endif /* NODE_H_ */

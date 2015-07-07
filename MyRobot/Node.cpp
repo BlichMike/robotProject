@@ -1,7 +1,7 @@
 #include "Node.h"
 #include <math.h>
 #include <cmath>
-Node::Node(Node &lastNode,float CurrXPosition, float CurrYPosition,int Level)
+Node::Node(Node &lastNode,int CurrXPosition, int CurrYPosition,int Level)
 {
 	Node *fromWhereGetNode = &lastNode;
 	xPos=CurrXPosition;
@@ -15,12 +15,12 @@ void Node::updateChecked(bool check)
 {
 	checked = check;
 }
-void Node::UpdateData(int horizontal, int vertical, const float & xDest, const float & yDest)
+void Node::UpdateData(int horizontal, int vertical, const int & xDest, const int & yDest)
 {
 	nextLevel(horizontal,vertical);
 	updatePriority(xDest,yDest);
 }
-void Node::updatePriority(const float & xDest, const float & yDest)
+void Node::updatePriority(const int & xDest, const int & yDest)
 {
 	priority=level + estimate(xDest, yDest)*10; //A*
 }
@@ -32,7 +32,7 @@ void Node::nextLevel(int horizontal, int vertical) // i: direction
 }
 
 // Estimation function for the remaining distance to the goal.
-const int & Node::estimate(const float & xDest, const float & yDest)
+const int & Node::estimate(const int & xDest, const int & yDest)
 {
 	static int xDistance, yDistance, totalDistance;
 	xDistance=std::abs(xDest-xPos);
