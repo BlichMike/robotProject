@@ -15,14 +15,14 @@ void Node::updateChecked(bool check)
 {
 	checked = check;
 }
-void Node::UpdateData(int horizontal, int vertical, const int & xDest, const int & yDest)
+void Node::UpdateData(int horizontal, int vertical,int xDest,int yDest)
 {
 	nextLevel(horizontal,vertical);
 	updatePriority(xDest,yDest);
 }
-void Node::updatePriority(const int & xDest, const int & yDest)
+void Node::updatePriority(int xDest,int yDest)
 {
-	priority=level + estimate(xDest, yDest)*10; //A*
+	priority=level + estimate(xDest, yDest); //A*
 }
 
 // give better priority to going strait instead of diagonally
@@ -32,14 +32,14 @@ void Node::nextLevel(int horizontal, int vertical) // i: direction
 }
 
 // Estimation function for the remaining distance to the goal.
-const int & Node::estimate(const int & xDest, const int & yDest)
+int Node::estimate(int xDest, int yDest)
 {
-	static int xDistance, yDistance, totalDistance;
-	xDistance=std::abs(xDest-xPos);
-    yDistance=std::abs(yDest-yPos);
+	int xDistance, yDistance, totalDistance;
+	xDistance=std::abs(std::abs(xDest) - std::abs(xPos));
+    yDistance=std::abs(std::abs(yDest) - std::abs(yPos));
 
     // Euclidian Distance
-    totalDistance=static_cast<int>(sqrt(xDistance+yDistance));
+    totalDistance=(int)(sqrt(xDistance+yDistance));
     estimateDist= totalDistance;
     return(totalDistance);
 }

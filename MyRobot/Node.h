@@ -35,10 +35,10 @@ public:
 	bool IsChecked() {return checked;}
 
 	void updateChecked(bool check);
-	void UpdateData(int horizontal, int vertical, const int & xDest, const int & yDest);
-	void updatePriority(const int & xDest, const int & yDest);
+	void UpdateData(int horizontal, int vertical,int xDest,int yDest);
+	void updatePriority(int xDest,int yDest);
 	void nextLevel(int horizontal, int vertical);
-	const int & estimate(const int & xDest, const int & yDest);
+	int estimate(int xDest,int yDest);
 };
 
 #endif /* NODE_H_ */
