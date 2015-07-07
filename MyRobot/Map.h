@@ -19,8 +19,6 @@ class Map
 	private :
 		void loadImage(string filename);
 
-		void saveImage(string filename,Node notesarr[]);
-
 	public:
 		Map();
 

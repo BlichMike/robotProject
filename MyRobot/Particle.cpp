@@ -147,5 +147,5 @@ float Particle::convLaserIdxToAngle(int index, int xCoordinate, int radius)
 //A method which print's the particle's map
 void Particle::printParticleMap()
 {
-	particleMap.printParticleMap();
+	//particleMap.printParticleMap();
 }
