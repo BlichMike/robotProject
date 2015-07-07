@@ -55,21 +55,24 @@ Map::Map(){
 
 bool Map::isPositionInMap(float xPosition,float yPosition)
 {
-	bool isInMap = true;
+	bool isInMap = false;
+	bool xposmin  = (int)xPosition > -(int)height/2;
+	bool xposmax  = (int)xPosition < (int)height/2;
+	bool yposmin  = (int)yPosition > -(int)width/2;
+	bool yposmax  = (int)yPosition < (int)width/2;
 	// Check for X position
-	if (((int)xPosition/resolution < -height/2) || ((int)xPosition/resolution > height/2))
-		isInMap = false;
-	// Check for Y position
-	if (((int)xPosition/resolution < -height/2) || ((int)xPosition/resolution > height/2))
-		isInMap = false;
+	if (xposmin && xposmax && yposmin && yposmax)
+	{
+		isInMap = true;
+	}
 	// return result
 	return isInMap;
 }
 
 //A method which returns a map's cell by a given X & Y coordinates
 void Map::getMapCellByPosition(float xPosition,float yPosition,int &x,int &y){
-	x = ((int)xPosition)/resolution + height/2;
-	y = ((int)yPosition)/resolution + width/2;
+	x = ((int)xPosition) + height/2;
+	y = ((int)yPosition) + width/2;
 }
 
 //A method which returns a map cell's value by a given X & Y coordinates
