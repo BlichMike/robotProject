@@ -36,9 +36,8 @@ map(
   bitmap "/home/colman/git/robotProject/MyRobot/roboticLabMap.png" 
   map_resolution 2.5
   size [40 18] 
-  name "hospital"
+  name "lab"
 )
-
 
 # a block for gripping
 define puck model(
@@ -48,48 +47,10 @@ define puck model(
   gui_nose 0
   fiducial_return 10
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 puck( pose [169 138 -105.501 ] color "red" )
-
-
-
-
-
-
-
 wbr914
 (
   color "white"
   name "wbr914_1"
-
-
-
-  pose [ 0 0 0]
+  pose [ 362 305 20]
 )
-
-
-
-
-
-
-
-
-
