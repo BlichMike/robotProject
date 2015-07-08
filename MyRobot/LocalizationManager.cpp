@@ -7,7 +7,7 @@ LocalizationManager::LocalizationManager(float robotCoordinateX,float robotCoord
 	particlesInit(robotCoordinateX,robotCoordinateY);
 }
 
-//A method which initializes & add a new particle to the particle's vector (list)
+// add new particle to particles vector
 void LocalizationManager::particlesInit(float robotCoordinateX,float robotCoordinateY)
 {
 	for (int particle = 0; particle < PARTICLES_COUNT; particle++)
@@ -18,7 +18,7 @@ void LocalizationManager::particlesInit(float robotCoordinateX,float robotCoordi
 	}
 }
 
-//A method which updates all the particles that are stored in the particle's vector (list)
+//update all particles
 void LocalizationManager::particlesUpdate(float deltaCoordinateX, float deltaCoordinateY, float deltaTetha,float laserScan[], int laserCount)
 {
 	particlesVector::iterator particlesBegin = particles.begin();
@@ -49,7 +49,7 @@ void LocalizationManager::particlesUpdate(float deltaCoordinateX, float deltaCoo
 	}
 }
 
-//A method which print's the particle that has the maximum belief (of all of the particles)
+// print max particle (max belief)
 void LocalizationManager::prtParticleWithMaxBelief()
 {
 	unsigned int particleIdx;
@@ -59,6 +59,7 @@ void LocalizationManager::prtParticleWithMaxBelief()
 	particle = new Particle(0,0);
 	particle->particleBelief = 0;
 
+	// % 5
 	if (printParticlesInterval % 5 == 0)
 	{
 		for (particleIdx = 0; particleIdx<particles.size(); particleIdx++)

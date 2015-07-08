@@ -3,7 +3,7 @@
 //C'Tor
 GoLeft::GoLeft(Robot * robot):Behaviors(robot) {}
 
-//An overriden method that checks if the go left start condition was activated (returns true if so)
+// true if need to go left
 bool GoLeft::startCondition()
 {
 	int count = 0;
@@ -26,7 +26,7 @@ bool GoLeft::startCondition()
 	return false;
 }
 
-//An overriden method that checks if the go left stop condition was activated (returns true if so)
+// stop going left
 bool GoLeft::stopCondition()
 {
 	int freeWayAheadCount = 0;
@@ -48,7 +48,7 @@ bool GoLeft::stopCondition()
 	return false;
 }
 
-//An overriden method that controls the go left action of the current behavior
+// action
 void GoLeft::action()
 {
 	robot->setRobotSpeed(0.0,1.0);

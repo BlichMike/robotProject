@@ -17,8 +17,8 @@ int main()
 
 
 	cout<<"Enter the parameters file name\n";
-	string fileName;
-	cin>>fileName;
+	string fileName="parameters.txt";
+	//cin>>fileName;
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
 	configFile->readConfigFile(fileName);

@@ -2,13 +2,6 @@
 /*                                                                                */
 /*                            C l a s s  : M a n a g e r                          */
 /*                            --------------------------                          */
-/*                                                                                */
-/* Description: A class which handles all the robot's control system              */
-/*                                                                                */
-/**********************************************************************************/
-/*                                                                                */
-/* Methods: Run - A method that controls the robot performance                    */
-/*                                                                                */
 /**********************************************************************************/
 #ifndef MANAGER_H_
 #define MANAGER_H_

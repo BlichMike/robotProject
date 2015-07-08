@@ -47,6 +47,7 @@ Map::Map(){
 	}
 }
 
+// Check if the position is in map
 bool Map::isPositionInMap(float xPosition,float yPosition)
 {
 	bool isInMap = false;

@@ -3,7 +3,7 @@
 //C'Tor
 Behaviors::Behaviors(Robot * robot):robot(robot), _numNext(0),_next(NULL){}
 
-//A method to add a behavior to the behavior's linked list
+// add behaviors to list
 bool Behaviors::addNext(Behaviors * next)
 {
 	int i;
@@ -28,7 +28,7 @@ bool Behaviors::addNext(Behaviors * next)
 	return true;
 }
 
-//A method to get the next behavior from the behavior's linked list
+// get next nehavior from the list
 Behaviors * Behaviors::getNext()
 {
 	for (int i=0 ; i<_numNext ; i++)

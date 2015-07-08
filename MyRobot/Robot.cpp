@@ -23,7 +23,7 @@ void Robot::refreshLaserScan()
 	playerClient->Read();
 }
 
-//A method which converts a given laser degree to laser index
+// converts a given laser degree to laser index
 int Robot::convertDegToIdx(int degree)
 {
 	return (degree*3);
@@ -35,14 +35,13 @@ int Robot::convertIdxToDeg(int index)
 	return (index/3);
 }
 
-// Getters and Setters
-// Sets the robot's speed
+// sets the robot's speed
 void Robot::setRobotSpeed(double speed, double angle)
 {
 	positionProxy->SetSpeed(speed,angle);
 }
 
-// Sets & gets the robots deltas
+// sets & gets the robots deltas
 void Robot::getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float &deltaCoordinateYaw)
 {
 	float xPosition   = positionProxy->GetXPos();
@@ -58,7 +57,7 @@ void Robot::getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float
 	robotPositionYaw = yawPosition;
 }
 
-// Gets the laser scan at a specific index
+// sets the laser scan at a specific index
 float Robot::getLaserByIdx(int laserIdx)
 {
 	if (laserIdx > 655 || laserIdx < 0)

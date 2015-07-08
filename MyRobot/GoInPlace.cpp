@@ -3,13 +3,13 @@
 //C'Tor
 GoInPlace::GoInPlace(Robot * robot):Behaviors(robot) {}
 
-//An overriden method that checks if the go in place start condition was activated (returns true if so)
+// turn in place
 bool GoInPlace::startCondition()
 {
 	return true;
 }
 
-//An overriden method that checks if the go in place stop condition was activated (returns true if so)
+// stop turn in place
 bool GoInPlace::stopCondition()
 {
 	int freeWayAheadCount = 0;
@@ -30,7 +30,7 @@ bool GoInPlace::stopCondition()
 	return false;
 }
 
-//An overriden method that controls the go in place action of the current behavior
+// action
 void GoInPlace::action()
 {
 	robot->setRobotSpeed(0.0,1.0);

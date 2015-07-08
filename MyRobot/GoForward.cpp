@@ -3,13 +3,13 @@
 //C'Tor
 GoForward::GoForward(Robot * robot):Behaviors(robot) {}
 
-//An overriden method that checks if the go forward start condition was activated (returns true if so)
+// renturn true
 bool GoForward::startCondition()
 {
 	return true;
 }
 
-//An overriden method that checks if the go forward stop condition was activated (returns true if so)
+//check if to stop
 bool GoForward::stopCondition()
 {
 	int wallAheadCount 	= 0;
@@ -56,7 +56,7 @@ bool GoForward::stopCondition()
 	return false;
 }
 
-//An overriden method that controls the go forward action of the current behavior
+// action
 void GoForward::action()
 {
 	robot->setRobotSpeed(0.3,0.0);

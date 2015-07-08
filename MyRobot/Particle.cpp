@@ -9,7 +9,7 @@ Particle::Particle(float robotCoordinateX,float robotCoordinateY)
 	particleInit(robotCoordinateX,robotCoordinateY);
 }
 
-//A method which initializes the particle's coordinates
+// init the particle's coordinates
 void Particle::particleInit(float robotCoordinateX,float robotCoordinateY)
 {
 	int xCellCoordinateByMap,yCellCoordinateByMap;
@@ -23,7 +23,7 @@ void Particle::particleInit(float robotCoordinateX,float robotCoordinateY)
 	particleMap.getMapCellByPosition(particleCoordinateX,particleCoordinateY,xCellCoordinateByMap,yCellCoordinateByMap);
 }
 
-//A method which updates a particle's belief, position and map
+// updates a particle's belief, position and map
 void Particle::updateParticle(float deltaCoordinateX, float deltaCoordinateY, float deltaCoordinateYaw, float laserScan[], int laserCount)
 {
 	particleCoordinateX   += METER_TO_CM(deltaCoordinateX);
@@ -34,7 +34,7 @@ void Particle::updateParticle(float deltaCoordinateX, float deltaCoordinateY, fl
 	particleBelief =  predictedBelief * calcPrecisionByMap(laserScan,laserCount);
 }
 
-//A method which calculates the particle's probability using the delta coordinates (X, Y & Yaw)
+// calculates the particle's probability using the delta coordinates (X, Y & Yaw)
 float Particle::particleProbCalc(float deltaCoordinateX, float deltaCoordinateY, float deltaCoordinateYaw)
 {
 	float distance = sqrt(pow(deltaCoordinateX,2)+pow(deltaCoordinateY,2));
@@ -57,7 +57,7 @@ float Particle::particleProbCalc(float deltaCoordinateX, float deltaCoordinateY,
 	return 1.0;
 }
 
-//A method which calculates the precision factor (%TP / %TP + %FP) using the particle's map & laser scan
+// calculates the precision factor (%TP / %TP + %FP) using the particle's map & laser scan
 float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 {
 	float xObj,yObj;
@@ -108,44 +108,39 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 	return ((float)(countHit))/(countMiss + countHit);
 }
 
-/***********************************/
-/*        Seters  &  Geters        */
-/***********************************/
-//A method which set's a newly created particle's map from a current particle's map (father -> child)
+// set's a newly created particle's map from a current particle's map (father -> child)
 void Particle::setParticleMap(Map particleMapCopy)
 {
 	particleMap = particleMapCopy;
 }
 
-//A method which set's the particle's Yaw coordinate
+//set's the particle's Yaw coordinate
 void Particle::setParticleYaw(float yawCoordinate)
 {
 	particleCoordinateYaw = yawCoordinate;
 }
 
-//A method which get's the particle's map
+// get's the particle's map
 Map Particle::getParticleMap()
 {
 	return particleMap;
 }
 
-//A method which get's the particle's calculated belief
+// get's the particle's calculated belief
 double Particle::getParticleBelief()
 {
 	return particleBelief;
 }
 
-/*********************************/
-/*         Help  Methods         */
-/*********************************/
-//A method which converts a laser index id to an angle
+
+//converts a laser index id to an angle
 float Particle::convLaserIdxToAngle(int index, int xCoordinate, int radius)
 {
 	return ((float)index*((float)radius/xCoordinate))-radius/2.0;
 }
 
-//A method which print's the particle's map
+// print's the particle's map
 void Particle::printParticleMap()
 {
-	//particleMap.printParticleMap();
+	// todo FIX IN THE MAP !!!
 }

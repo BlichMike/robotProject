@@ -3,24 +3,6 @@
 /*                               C l a s s  :  R o b o t                                */
 /*                               -----------------------                                */
 /*                                                                                      */
-/* Description: A class which handles the robot's system (positions, connection & more) */
-/*                                                                                      */
-/****************************************************************************************/
-/*                                                                                      */
-/* Methods: refreshLaserScan - A method which refreshe's the laser scan (read)          */
-/*                                                                                      */
-/*          convertDegToIdx  - A method which converts a given laser degree to a        */
-/*                             parallel laser index                                     */
-/*                                                                                      */
-/*          convertIdxToDeg  - A method which converts a given laser index to a         */
-/*                             parallel laser degree                                    */
-/*                                                                                      */
-/*          setRobotSpeed    - A method which set's the robot's speed                   */
-/*																					    */
-/*          getRobotDeltas   - A method which set's & get's the robot's deltas          */
-/*                                                                                      */
-/*          getLaserByIdx    - A method which get's the laser scan at a specific index  */
-/*                                                                                      */
 /****************************************************************************************/
 
 #ifndef ROBOT_H_

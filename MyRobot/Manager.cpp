@@ -29,7 +29,7 @@ Manager::Manager(Robot* robot) :robot(robot)
 	localizationManager = new LocalizationManager(robot->robotPositionX,robot->robotPositionY);
 }
 
-//A method that controls the robot performance
+// function the init the robot manager
 void Manager::Run()
 {
 	float deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw;

@@ -3,7 +3,7 @@
 //C'Tor
 GoRight::GoRight(Robot * robot):Behaviors(robot) {}
 
-//An overriden method that checks if the go right start condition was activated (returns true if so)
+// true
 bool GoRight::startCondition()
 {
 	int count = 0;
@@ -26,7 +26,7 @@ bool GoRight::startCondition()
 }
 
 
-//An overriden method that checks if the go right stop condition was activated (returns true if so)
+// stop going right
 bool GoRight::stopCondition()
 {
 	int freeWayAheadCount = 0;
@@ -47,7 +47,7 @@ bool GoRight::stopCondition()
 	return false;
 }
 
-//An overriden method that controls the go right action of the current behavior
+// action
 void GoRight::action()
 {
 	robot->setRobotSpeed(0.0,-1.0);
