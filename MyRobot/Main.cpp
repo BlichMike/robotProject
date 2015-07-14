@@ -15,10 +15,7 @@ int main()
 {
 	cout<<"System is booting up..."<<endl;
 
-
-	cout<<"Enter the parameters file name\n";
 	string fileName="parameters.txt";
-	//cin>>fileName;
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
 	configFile->readConfigFile(fileName);
