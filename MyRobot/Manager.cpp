@@ -7,7 +7,6 @@
 #include "ConfigurationManager.h"
 #include <queue>
 #include "Node.h"
-#include "Astar.h"
 
 //C'Tor
 Manager::Manager(Robot* robot) :robot(robot)
@@ -57,7 +56,6 @@ void Manager::Run()
 	//Set current position
 	Node endPosition = Node(*n,endx,endy,0);
 
-	queue<Node> q = Astar().PathPlanner(startPosition,endPosition);
 
 	//*********************************
 
