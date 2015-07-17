@@ -39,7 +39,7 @@ int Node::estimate(int xDest, int yDest)
     yDistance=std::abs(std::abs(yDest) - std::abs(yPos));
 
     // Euclidian Distance
-    totalDistance=(int)(sqrt(xDistance+yDistance));
+    totalDistance=(int)(sqrt((xDistance*xDistance)+(yDistance*yDistance)));
     estimateDist= totalDistance;
     return(totalDistance);
 }
