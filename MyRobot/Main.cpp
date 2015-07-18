@@ -1,9 +1,3 @@
-//============================================================================
-// Name        : Main.cpp
-// Authors     : Erez Barash, Or Moushkatel, Shelly Yael & Elinor Vaknin
-// Version     :
-//============================================================================
-
 #include <iostream>
 #include "Robot.h"
 #include "Manager.h"
