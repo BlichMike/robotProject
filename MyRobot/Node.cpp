@@ -35,11 +35,11 @@ void Node::nextLevel(int horizontal, int vertical) // i: direction
 int Node::estimate(int xDest, int yDest)
 {
 	int xDistance, yDistance, totalDistance;
-	xDistance=std::abs(std::abs(xDest) - std::abs(xPos));
-    yDistance=std::abs(std::abs(yDest) - std::abs(yPos));
+	xDistance=std::abs(xDest - xPos);
+    yDistance=std::abs(yDest - yPos);
 
     // Euclidian Distance
-    totalDistance=(int)(sqrt(xDistance+yDistance));
+    totalDistance=(int)(sqrt(xDistance*xDistance+yDistance*yDistance));
     estimateDist= totalDistance;
     return(totalDistance);
 }

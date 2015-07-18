@@ -73,13 +73,14 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 
 
 					// Check the position in the map
-					if (Map().isPositionInMap(currentNode.getxPos() + horizontal* robotSizeX, currentNode.getyPos() + vertical* robotSizeY))
+					//if (Map().isPositionInMap(currentNode.getxPos() + horizontal* robotSizeX, currentNode.getyPos() + vertical* robotSizeY))
+					if (true)
 					{
-						int xpos;
-						int ypos;
+						int xpos = currentNode.getxPos()+ horizontal *robotSizeX;
+						int ypos = currentNode.getyPos()+vertical *robotSizeY;
 
 						// Get the current position on the map
-						Map().getMapCellByPosition(currentNode.getxPos()+ horizontal *robotSizeX, currentNode.getyPos()+vertical *robotSizeY,xpos,ypos);
+						//Map().getMapCellByPosition(currentNode.getxPos()+ horizontal *robotSizeX, currentNode.getyPos()+vertical *robotSizeY,xpos,ypos);
 						// Check if there is not obsticale
 						if (!((Map().getMapCellValue(xpos, ypos)==Obstical)))
 						{
