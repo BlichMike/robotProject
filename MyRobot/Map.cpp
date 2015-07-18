@@ -72,9 +72,22 @@ void Map::getMapCellByPosition(float xPosition,float yPosition,int &x,int &y){
 
 //A method which returns a map cell's value by a given X & Y coordinates
 int Map::getMapCellValue(int xPosition,int yPosition){
-	if((newImage[yPosition * width * 4 + xPosition * 4 + 0] == 0)&&
-			(newImage[yPosition * width * 4 + xPosition * 4 + 1] = 0)&&
-			(newImage[yPosition * width * 4 + xPosition * 4 + 2] = 0))
+//	for(int i=0; i < width; i+=4)
+//	{
+//		for (int j=0; j< height ;j+=4)
+//		{
+//			if((newImage[i * width * 4 + j * 4 + 0] == 0)&&
+//						(newImage[i * width * 4 + j * 4 + 1] == 0)&&
+//						(newImage[i * width * 4 + j * 4 + 2] == 0))
+//				cout<< FREE;
+//			else
+//				cout<< OBSTACLE;
+//		}
+//		cout << "\n";
+//	}
+	if((newImage[yPosition * width * 4 + xPosition * 4 + 0] == 255)&&
+			(newImage[yPosition * width * 4 + xPosition * 4 + 1] == 255)&&
+			(newImage[yPosition * width * 4 + xPosition * 4 + 2] == 255))
 		return FREE;
 	return OBSTACLE;
 }

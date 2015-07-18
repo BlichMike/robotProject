@@ -6,5 +6,5 @@ class Astar
 {
 	public:
 
-	queue<Node> PathPlanner(Node startPoint,Node endPoint);
+	Node** PathPlanner(Node * startPoint,Node * endPoint);
 };

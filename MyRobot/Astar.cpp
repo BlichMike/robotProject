@@ -2,13 +2,13 @@
 #include <vector>
 #include <queue>
 #include <ctime>
-#include "Map.h"
+#include "Map.h"fifinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndnalPathFromStartToEnd
 #include "ConfigurationManager.h"
-#include <math.h>
+#include <cmath>
 #include <limits>
 using namespace std;
 
-queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
+Node** Astar::PathPlanner(Node * startPoint,Node * endPoint)
 {
 	//-1-1|-1,0|-1,1
 	// 0-1| 0 0| 0,1
@@ -17,14 +17,14 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 	// Vertical   =   |
 
 	// Horizontal=   -->
-
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
+	Map * myMap = new Map();
 	int robotSizeX = configFile->getRobotSizeX();
 	int robotSizeY = configFile->getRobotSizeY();
 
 	// Define the the first node
-	vector<Node> AllFoundNodes;
+	vector<Node*> AllFoundNodes;
 	AllFoundNodes.push_back(startPoint);
 
 	// Set the obstical to 1
@@ -41,25 +41,25 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 		// Find the lowest priority node that haven't checked
 		for (int index=0; index < (int)AllFoundNodes.size(); index++)
 		{
-			if (!AllFoundNodes[index].IsChecked())
+			if (!AllFoundNodes[index]->IsChecked())
 			{
-				if (AllFoundNodes[index].getPriority() <= minPriority)
+				if (AllFoundNodes[index]->getPriority() <= minPriority)
 				{
-					minPriority =AllFoundNodes[index].getPriority();
+					minPriority =AllFoundNodes[index]->getPriority();
 					minPriorityIndexFound = index;
 				}
 			}
 		}
 
-		Node currentNode = AllFoundNodes[minPriorityIndexFound];
-		AllFoundNodes[minPriorityIndexFound].updateChecked(true);
+		Node * currentNode = AllFoundNodes[minPriorityIndexFound];
+		AllFoundNodes[minPriorityIndexFound]->updateChecked(true);
 		// For debug
 		int size = (int)AllFoundNodes.size();
 
-		int x = currentNode.getxPos();
-		int y = currentNode.getyPos();
-		int rzx = configFile->getRobotSizeX();
-		int rzy = configFile->getRobotSizeY();
+//		int x = currentNode.getxPos();
+//		int y = currentNode.getyPos();
+//		int rzx = configFile->getRobotSizeX();
+//		int rzy = configFile->getRobotSizeY();
 
 		// Run for all Horizontal
 		for (int vertical=-1; vertical<=1; vertical++)
@@ -70,19 +70,17 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 				// Check if not current position
 				if (!(horizontal ==0 && vertical ==0))
 				{
-
-
 					// Check the position in the map
-					//if (Map().isPositionInMap(currentNode.getxPos() + horizontal* robotSizeX, currentNode.getyPos() + vertical* robotSizeY))
+					//if (Map().isPositionInMap(currentNode.getxPos() + horizontal* robotSizeX, currentNode->getyPos() + vertical* robotSizeY))
 					if (true)
 					{
-						int xpos = currentNode.getxPos()+ horizontal *robotSizeX;
-						int ypos = currentNode.getyPos()+vertical *robotSizeY;
+						int xpos = currentNode->getxPos()+ horizontal *robotSizeX;
+						int ypos = currentNode->getyPos()+vertical *robotSizeY;
 
 						// Get the current position on the map
 						//Map().getMapCellByPosition(currentNode.getxPos()+ horizontal *robotSizeX, currentNode.getyPos()+vertical *robotSizeY,xpos,ypos);
 						// Check if there is not obsticale
-						if (!((Map().getMapCellValue(xpos, ypos)==Obstical)))
+						if (!((myMap->getMapCellValue(xpos, ypos)==Obstical)))
 						{
 							// Set boolean if cell was found
 							bool cellfound = false;
@@ -90,19 +88,19 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 							for (int index=0; index < (int)AllFoundNodes.size(); index++)
 							{
 								// Check if cell was found
-								if (AllFoundNodes[index].getxPos() == currentNode.getxPos() + horizontal * robotSizeX &&
-									AllFoundNodes[index].getyPos() == currentNode.getyPos() + vertical * robotSizeY)
+								if (AllFoundNodes[index]->getxPos() == currentNode->getxPos() + horizontal * robotSizeX &&
+									AllFoundNodes[index]->getyPos() == currentNode->getyPos() + vertical * robotSizeY)
 								{
 									// Set found
 									cellfound = true;
 									// Set the new found node
-									Node newNode = Node(currentNode,
-													    currentNode.getxPos() + horizontal * robotSizeX,
-														currentNode.getyPos() + vertical * robotSizeY,
-														currentNode.getLevel());
-									newNode.UpdateData(newNode.getxPos(),newNode.getyPos(),endPoint.getxPos(),endPoint.getyPos());
-									// Check if the found Node priority is better than the old one
-									if (AllFoundNodes[index].getPriority() > newNode.getPriority())
+									int newXPOS = currentNode->getxPos() + horizontal * robotSizeX;
+									int newYPOS = currentNode->getyPos() + vertical * robotSizeY;
+									int newLevel = currentNode->getLevel();
+									Node * newNode = new Node(*currentNode,newXPOS,newYPOS,newLevel);
+
+									newNode->UpdateData(horizontal, vertical, endPoint->getxPos(),endPoint->getyPos());									// Check if the found Node priority is better than the old one
+									if (AllFoundNodes[index]->getPriority() > newNode->getPriority())
 									{
 										AllFoundNodes[index] = newNode;
 										break;
@@ -112,20 +110,20 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 							// Check if cell was not found
 							if (!cellfound)
 							{
-								Node newNode = Node(currentNode,
-													currentNode.getxPos() + horizontal * robotSizeX,
-													currentNode.getyPos() + vertical * robotSizeY,
-									     			currentNode.getLevel());
-								newNode.UpdateData(newNode.getxPos(),newNode.getyPos(),endPoint.getxPos(),endPoint.getyPos());
+								int newXPOS = currentNode->getxPos() + horizontal * robotSizeX;
+								int newYPOS = currentNode->getyPos() + vertical * robotSizeY;
+								int newLevel = currentNode->getLevel();
+								Node * newNode = new Node(*currentNode,newXPOS,newYPOS,newLevel);
+								newNode->UpdateData(horizontal, vertical, endPoint->getxPos(),endPoint->getyPos());
 									// Add new Node
 								AllFoundNodes.push_back(newNode);
 
 
 								// Check if the cell is the destiny
-								if ((newNode.getxPos() + robotSizeX >= endPoint.getxPos()) &&
-									(newNode.getxPos() <= endPoint.getxPos() + robotSizeX) &&
-									(newNode.getyPos() + robotSizeY >= endPoint.getyPos()) &&
-									(newNode.getyPos() <= endPoint.getyPos() + robotSizeY))
+								if ((newNode->getxPos() + robotSizeX >= endPoint->getxPos()) &&
+									(newNode->getxPos() <= endPoint->getxPos() + robotSizeX) &&
+									(newNode->getyPos() + robotSizeY >= endPoint->getyPos()) &&
+									(newNode->getyPos() <= endPoint->getyPos() + robotSizeY))
 								{
 									FoundTheDestiny = true;
 									break;
@@ -133,19 +131,20 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 							}
 						}
 					}
+
 				}
 			}
 		}
 	}
 	// After Ended Create the path
 	int indexFinal =-1;
-
+	int robotDistanceFromEstimate = sqrt(robotSizeX*robotSizeX+robotSizeY*robotSizeY);
 	// Search in loop where is the nodes and make of them queue
 	for (int index=0; index < (int)AllFoundNodes.size(); index++)
 	{
 		// Get the index of final node
 		// if the distancnce is 0, than you found the last one
-		if(AllFoundNodes[index].getEstimate() <= sqrt(robotSizeX+robotSizeY))
+		if(AllFoundNodes[index]->getEstimate() <= robotDistanceFromEstimate)
 		{
 			indexFinal = index;
 		}
@@ -153,22 +152,44 @@ queue<Node> Astar::PathPlanner(Node startPoint,Node endPoint)
 
 
 	// Set the queue of the path
-	queue<Node> finalPath;
+	queue<Node*> finalPath;
 	int s = finalPath.size();
+	int b = AllFoundNodes.size();
 	bool start = false;
 	// Set the last node
-	Node current = AllFoundNodes[indexFinal];
+	Node * current = AllFoundNodes[indexFinal];
 	finalPath.push(current);
+	Node *node = current->getLastNode();
 	// While i dont get the start position
 	while(!start)
 	{
+		node = node->getLastNode();
+
 		// Add to the queue
-		finalPath.push(current.getLastNode());
-		// Check if i get the fist node
-		if (current.getLastNode().getxPos() == startPoint.getxPos() && current.getLastNode().getyPos() == startPoint.getyPos())
+		if (node != 0)
+		{
+			finalPath.push(node);
+			// Check if i get the fist node
+			//if (current.getLastNode().getxPos() == startPoint.getxPos() && current.getLastNode().getyPos() == startPoint.getyPos())
+			//{
+			//	start = true;
+			//}
+		}
+		else
 		{
 			start = true;
 		}
 	}
-	return finalPath;
+	// Set the path from start to end
+	int sizeOfPath = finalPath.size();
+	Node **finalPathArr = new Node*[sizeOfPath];
+
+	for (int index =0; index < sizeOfPath; index++)
+	{
+		Node *n = finalPath.front();
+		finalPath.pop();
+		finalPathArr[sizeOfPath-index-1]=n;
+	}
+
+	return finalPathArr;
 }
