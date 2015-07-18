@@ -1,9 +1,3 @@
-//============================================================================
-// Name        : Main.cpp
-// Authors     : Erez Barash, Or Moushkatel, Shelly Yael & Elinor Vaknin
-// Version     :
-//============================================================================
-
 #include <iostream>
 #include "Robot.h"
 #include "Manager.h"
@@ -14,7 +8,6 @@ using namespace std;
 int main()
 {
 	cout<<"System is booting up..."<<endl;
-
 
 	cout<<"Enter the parameters file name\n";
 	string fileName="parameters.txt";
