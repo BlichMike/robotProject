@@ -2,13 +2,13 @@
 #include <vector>
 #include <queue>
 #include <ctime>
-#include "Map.h"fifinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndfinalPathFromStartToEndnalPathFromStartToEnd
+#include "Map.h"
 #include "ConfigurationManager.h"
 #include <cmath>
 #include <limits>
 using namespace std;
 
-Node** Astar::PathPlanner(Node * startPoint,Node * endPoint)
+vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 {
 	//-1-1|-1,0|-1,1
 	// 0-1| 0 0| 0,1
@@ -182,13 +182,14 @@ Node** Astar::PathPlanner(Node * startPoint,Node * endPoint)
 	}
 	// Set the path from start to end
 	int sizeOfPath = finalPath.size();
-	Node **finalPathArr = new Node*[sizeOfPath];
+	vector<Node*> finalPathArr;
 
 	for (int index =0; index < sizeOfPath; index++)
 	{
 		Node *n = finalPath.front();
 		finalPath.pop();
-		finalPathArr[sizeOfPath-index-1]=n;
+		finalPathArr.push_back(n);
+		reverse(finalPathArr.begin(), finalPathArr.end());
 	}
 
 	return finalPathArr;

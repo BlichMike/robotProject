@@ -2,9 +2,11 @@
 #include "Map.h"
 #include "Node.h"
 #include <queue>
+#include <algorithm>
+
 class Astar
 {
 	public:
 
-	Node** PathPlanner(Node * startPoint,Node * endPoint);
+	vector<Node*> PathPlanner(Node * startPoint,Node * endPoint);
 };
