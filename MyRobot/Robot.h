@@ -24,8 +24,8 @@ class Robot
 	LaserProxy      * laserProxy;
 
 public:
-	float robotPositionX, robotPositionY, robotPositionYaw;
-	float currDestX, CurrDestY, curDestAngl;
+	double robotPositionX, robotPositionY, robotPositionYaw;
+	double currDestX, CurrDestY, curDestAngl;
 
 	Robot(char* ip,int port);
 
@@ -37,15 +37,15 @@ public:
 
 	int convertDegToIdx(int degree);
 
-	int getYaw(){refreshLaserScan(); return positionProxy->GetYaw();}
+	double getYaw(){return positionProxy->GetYaw();}
 
 	int convertIdxToDeg(int index);
 
 	void setRobotSpeed(double speed, double angle);
 
-	void getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float &deltaCoordinateYaw);
+	void getRobotDeltas(double &deltaCoordinateX,double &deltaCoordinateY,double &deltaCoordinateYaw);
 
-	float getLaserByIdx(int laserIdx);
+	double getLaserByIdx(int laserIdx);
 };
 
 #endif /* ROBOT_H_ */

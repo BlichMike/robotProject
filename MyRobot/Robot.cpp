@@ -22,16 +22,19 @@ Robot::Robot(char* ip,int port)
 	}
 
 	positionProxy->SetMotorEnable(true);
+
 	for (int i=0; i < 15; i ++)
-		{
-			refreshLaserScan();
-		}
+	{
+		refreshLaserScan();
+	}
+
 }
 
 
 void Robot::setOdometry(double x, double y, double yaw)
 {
 	double w = (yaw > 180)? ((-1) * (360 - yaw)): yaw;
+	w  = (w * M_PI ) / 180;
 	positionProxy->SetOdometry(x, y, w);
 	refreshLaserScan();
 }
@@ -62,7 +65,7 @@ void Robot::setRobotSpeed(double speed, double angle)
 }
 
 // sets & gets the robots deltas
-void Robot::getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float &deltaCoordinateYaw)
+void Robot::getRobotDeltas(double &deltaCoordinateX,double &deltaCoordinateY,double &deltaCoordinateYaw)
 {
 	refreshLaserScan();
 
@@ -80,7 +83,7 @@ void Robot::getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float
 }
 
 // sets the laser scan at a specific index
-float Robot::getLaserByIdx(int laserIdx)
+double Robot::getLaserByIdx(int laserIdx)
 {
 	if (laserIdx > 655 || laserIdx < 0)
 	{

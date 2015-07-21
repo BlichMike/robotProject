@@ -21,13 +21,17 @@ void GoInPlace::action()
 {
 	int destWayPointAngl = robot->curDestAngl;
 	//Will stop when the deg is right;
-	bool keepTurnning = robot->getYaw() != destWayPointAngl;
+	bool keepTurnning = (int)(robot->getYaw()*100) != (int)(destWayPointAngl * M_PI / 180 * 100);
 	if(keepTurnning)
-		robot->setRobotSpeed(0.0,1.0);
+		robot->setRobotSpeed(0.0,0.7);
 	while(keepTurnning){
 		robot->refreshLaserScan();
-		cout << robot->getYaw() << endl;
-		keepTurnning = robot->getYaw() != destWayPointAngl;
+		cout << (int)(robot->getYaw()*100)  <<  "  "  <<  (int)(destWayPointAngl * M_PI / 180 * 100) << endl;
+		if ((((int)(robot->getYaw()*100) <= (int)(destWayPointAngl * M_PI / 180 * 100)+10)) &&
+		    ((int)(robot->getYaw()*100) +10 >= (int)(destWayPointAngl * M_PI / 180 * 100)))
+		{
+			keepTurnning = false;
+		}
 	}
 	robot->setRobotSpeed(0.0,0.0);
 }
