@@ -27,6 +27,7 @@ vector<Node*> WaypointsManager::generateWayPoints(Node * startPoint,Node * endPo
 	int pathSize = path.size();
 	vector<Node*> resultWaypoints;
 
+
 	for (int index=0; index < pathSize - 1; index++)
 	{
 		int engle = 0;
