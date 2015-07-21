@@ -10,13 +10,14 @@
 #include "Node.h"
 #include "Astar.h"
 #include <vector>
+#include "waypoint.h"
 
 namespace std {
 
 class WaypointsManager {
 public:
 	WaypointsManager();
-	vector<Node*> generateWayPoints(Node * startPoint,Node * endPoint);
+	vector<waypoint*> generateWayPoints(Node * startPoint,Node * endPoint);
 	virtual ~WaypointsManager();
 };
 

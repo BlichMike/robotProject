@@ -8,6 +8,7 @@
 #include <queue>
 #include "Node.h"
 #include "WaypointsManager.h"
+#include "waypoint.h"
 
 
 //C'Tor
@@ -58,8 +59,10 @@ void Manager::Run()
 	startPosition->updatePriority(endx,endy);
 	//Set current position
 	Node * endPosition = new Node(*n,endx,endy,0);
-	vector<Node*> waypoints = waypointsMgr->generateWayPoints(startPosition, endPosition);
+	vector<waypoint*> waypoints = waypointsMgr->generateWayPoints(startPosition, endPosition);
 
+	for (int index=0; index< 5; index ++)
+//	cout << waypoints[index]
 	//*********************************
 
 	robot->refreshLaserScan();
