@@ -14,12 +14,32 @@ Robot::Robot(char* ip,int port)
 	robotPositionY    = configFile->getStartLocationY();
 	robotPositionYaw  = configFile->getStartLocationYaw();
 
+	setOdometry(robotPositionX, robotPositionY, robotPositionYaw);
+
+	for (int i=0; i < 15; i ++)
+	{
+		refreshLaserScan();
+	}
+
 	positionProxy->SetMotorEnable(true);
+	for (int i=0; i < 15; i ++)
+		{
+			refreshLaserScan();
+		}
+}
+
+
+void Robot::setOdometry(double x, double y, double yaw)
+{
+	double w = (yaw > 180)? ((-1) * (360 - yaw)): yaw;
+	positionProxy->SetOdometry(x, y, w);
+	refreshLaserScan();
 }
 
 //refreshes the laser scan (read)
 void Robot::refreshLaserScan()
 {
+	playerClient->Read();
 	playerClient->Read();
 }
 
@@ -44,6 +64,8 @@ void Robot::setRobotSpeed(double speed, double angle)
 // sets & gets the robots deltas
 void Robot::getRobotDeltas(float &deltaCoordinateX,float &deltaCoordinateY,float &deltaCoordinateYaw)
 {
+	refreshLaserScan();
+
 	float xPosition   = positionProxy->GetXPos();
 	float yPosition   = positionProxy->GetYPos();
 	float yawPosition = positionProxy->GetYaw();

@@ -26,7 +26,7 @@ void GoInPlace::action()
 		robot->setRobotSpeed(0.0,1.0);
 	while(keepTurnning){
 		robot->refreshLaserScan();
-		cout <<  robot->getYaw();
+		cout << robot->getYaw() << endl;
 		keepTurnning = robot->getYaw() != destWayPointAngl;
 	}
 	robot->setRobotSpeed(0.0,0.0);

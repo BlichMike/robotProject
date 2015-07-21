@@ -56,15 +56,24 @@ void Manager::Run()
 
 	//*********************************
 
+
+	for (int i=0; i < 20; i++)
+	{
+		robot->setOdometry(startx,starty,configFile->getStartLocationYaw());
+		robot->refreshLaserScan();
+	}
+
 	//robot->refreshLaserScan();
 	for (int i = 0; i < waypoints.size(); i++)
 	{
+
 		robot->refreshLaserScan();
 		robot->CurrDestY = waypoints[i]->getyPos();
 		robot->currDestX = waypoints[i]->getxPos();
 		robot->curDestAngl = waypoints[i]->getEngle();
 		behavior[1]->action();
 		behavior[0]->action();
+
 		currentBehavior = currentBehavior->getNext();
 		localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
 	}

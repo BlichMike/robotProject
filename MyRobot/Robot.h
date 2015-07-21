@@ -29,13 +29,15 @@ public:
 
 	Robot(char* ip,int port);
 
+	void setOdometry(double x, double y, double yaw);
+
 	void refreshLaserScan();
 
 	Position2dProxy getPosition();
 
 	int convertDegToIdx(int degree);
 
-	int getYaw(){return positionProxy->GetYaw();}
+	int getYaw(){refreshLaserScan(); return positionProxy->GetYaw();}
 
 	int convertIdxToDeg(int index);
 
