@@ -7,7 +7,8 @@
 #include "ConfigurationManager.h"
 #include <queue>
 #include "Node.h"
-#include "Astar.h"
+#include "WaypointsManager.h"
+
 
 //C'Tor
 Manager::Manager(Robot* robot) :robot(robot)
@@ -34,6 +35,7 @@ void Manager::Run()
 {
 	float deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw;
 	int countSlamExecutions;
+	WaypointsManager * waypointsMgr = new WaypointsManager();
 
 	countSlamExecutions = 0;
 	currentBehavior     = behavior[0];
@@ -42,7 +44,7 @@ void Manager::Run()
 	//*********************************
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
-	Node *n= NULL;
+	Node* n = 0;
 	// need to be 0
 	int startx = configFile->getStartLocationX();
 	// need to be 0
@@ -52,12 +54,11 @@ void Manager::Run()
 	// need to be the end goal
 	int endy= configFile->getGoalY();
 	//Set current position
-	Node startPosition = Node(*n,startx,starty,0);
-	startPosition.updatePriority(endx,endy);
+	Node * startPosition = new Node(*n,startx,starty,0);
+	startPosition->updatePriority(endx,endy);
 	//Set current position
-	Node endPosition = Node(*n,endx,endy,0);
-
-	queue<Node> q = Astar().PathPlanner(startPosition,endPosition);
+	Node * endPosition = new Node(*n,endx,endy,0);
+	vector<Node*> waypoints = waypointsMgr->generateWayPoints(startPosition, endPosition);
 
 	//*********************************
 

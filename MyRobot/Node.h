@@ -11,7 +11,7 @@
 class Node {
 
 	// From Where the node came from
-	Node *fromWhereGetNode;
+	Node* fromWhereGetNode;
 	// current position
 	int xPos;
 	int yPos;
@@ -31,7 +31,7 @@ public:
 	int getLevel() const {return level;}
 	int getEstimate() const {return estimateDist;}
 	int getPriority() const {return priority;}
-	Node getLastNode() {return *fromWhereGetNode;}
+	Node* getLastNode() {return fromWhereGetNode;}
 	bool IsChecked() {return checked;}
 
 	void updateChecked(bool check);

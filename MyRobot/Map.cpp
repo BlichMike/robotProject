@@ -51,10 +51,10 @@ Map::Map(){
 bool Map::isPositionInMap(float xPosition,float yPosition)
 {
 	bool isInMap = false;
-	bool xposmin  = (int)xPosition > -(int)height/2;
-	bool xposmax  = (int)xPosition < (int)height/2;
-	bool yposmin  = (int)yPosition > -(int)width/2;
-	bool yposmax  = (int)yPosition < (int)width/2;
+	bool xposmin  = (int)xPosition > -(int)height;
+	bool xposmax  = (int)xPosition < (int)height;
+	bool yposmin  = (int)yPosition > -(int)width;
+	bool yposmax  = (int)yPosition < (int)width;
 	// Check for X position
 	if (xposmin && xposmax && yposmin && yposmax)
 	{
@@ -66,15 +66,28 @@ bool Map::isPositionInMap(float xPosition,float yPosition)
 
 //A method which returns a map's cell by a given X & Y coordinates
 void Map::getMapCellByPosition(float xPosition,float yPosition,int &x,int &y){
-	x = ((int)xPosition) + height/2;
-	y = ((int)yPosition) + width/2;
+	x = ((int)xPosition) ;
+	y = ((int)yPosition) ;
 }
 
 //A method which returns a map cell's value by a given X & Y coordinates
 int Map::getMapCellValue(int xPosition,int yPosition){
-	if((newImage[yPosition * width * 4 + xPosition * 4 + 0] == 0)&&
-			(newImage[yPosition * width * 4 + xPosition * 4 + 1] = 0)&&
-			(newImage[yPosition * width * 4 + xPosition * 4 + 2] = 0))
+//	for(int i=0; i < width; i+=4)
+//	{
+//		for (int j=0; j< height ;j+=4)
+//		{
+//			if((newImage[i * width * 4 + j * 4 + 0] == 0)&&
+//						(newImage[i * width * 4 + j * 4 + 1] == 0)&&
+//						(newImage[i * width * 4 + j * 4 + 2] == 0))
+//				cout<< FREE;
+//			else
+//				cout<< OBSTACLE;
+//		}
+//		cout << "\n";
+//	}
+	if((newImage[yPosition * width * 4 + xPosition * 4 + 0] == 255)&&
+			(newImage[yPosition * width * 4 + xPosition * 4 + 1] == 255)&&
+			(newImage[yPosition * width * 4 + xPosition * 4 + 2] == 255))
 		return FREE;
 	return OBSTACLE;
 }

@@ -1,11 +1,10 @@
 #include "Node.h"
-#include <math.h>
 #include <cmath>
 Node::Node(Node &lastNode,int CurrXPosition, int CurrYPosition,int Level)
 {
-	Node *fromWhereGetNode = &lastNode;
+	fromWhereGetNode = &lastNode;
 	xPos=CurrXPosition;
-	yPos=CurrYPosition;
+	yPos =CurrYPosition;
 	level=Level; // level
 	estimateDist=0; // Distance from the end
 	priority=0; // sum of the level and the estimate
@@ -28,18 +27,26 @@ void Node::updatePriority(int xDest,int yDest)
 // give better priority to going strait instead of diagonally
 void Node::nextLevel(int horizontal, int vertical) // i: direction
 {
-	level+=(((horizontal + vertical)%2)==0)?10:14;
+	if (((int)(std::abs(horizontal + vertical))%2)==1)
+	{
+		level+=10;
+	}
+	else
+	{
+		level+=14;
+	}
+	//level+=(((horizontal + vertical)%2)!=0)?10:14;
 }
 
 // Estimation function for the remaining distance to the goal.
 int Node::estimate(int xDest, int yDest)
 {
 	int xDistance, yDistance, totalDistance;
-	xDistance=std::abs(std::abs(xDest) - std::abs(xPos));
-    yDistance=std::abs(std::abs(yDest) - std::abs(yPos));
+	xDistance=std::abs(xDest - xPos);
+    yDistance=std::abs(yDest - yPos);
 
     // Euclidian Distance
-    totalDistance=(int)(sqrt(xDistance+yDistance));
+    totalDistance=(int)(sqrt(xDistance*xDistance+yDistance*yDistance));
     estimateDist= totalDistance;
     return(totalDistance);
 }
