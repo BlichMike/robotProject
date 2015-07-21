@@ -2,7 +2,7 @@
 # Desc: PC-BOT Stage demo with lots of models
 
 # the size of a pixel in Stage's underlying raytrace model in meters
-resolution     0.2
+resolution     0.025
 
 interval_sim 100  # milliseconds per update step
 interval_real 100 # real-time milliseconds per update step
@@ -19,7 +19,7 @@ include "map.inc"
 #include "laser.inc"
 
 #defines the size of the world
-size [40 20 ]
+size [13.75 9.5]
 
 gui_disable 0
 gui_interval 100
@@ -28,14 +28,14 @@ gui_menu_interval 20
 window( 
   size [ 755.000 684.000 ] 
 #  size [ 500 500 ]
-  center [-7.707 2.553] 
-  scale 0.009 
+  center [0 0] 
+  scale 0.025 
 )
 
 map( 
   bitmap "/home/colman/git/robotProject/MyRobot/roboticLabMap.png" 
-  map_resolution 2.5
-  size [40 18] 
+  map_resolution 0.025
+  size [13.75 9.5] 
   name "lab"
 )
 
@@ -54,14 +54,5 @@ wbr914
 (
   color "white"
   name "wbr914_1"
-  pose [ 7.00 -7.00 20]
+  pose [ 2.175 -2.875 20]
 )
-
-
-
-
-
-
-
-
-
