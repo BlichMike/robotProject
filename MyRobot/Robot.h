@@ -31,7 +31,11 @@ public:
 
 	void refreshLaserScan();
 
+	Position2dProxy getPosition();
+
 	int convertDegToIdx(int degree);
+
+	int getYaw(){return positionProxy->GetYaw();}
 
 	int convertIdxToDeg(int index);
 

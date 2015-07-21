@@ -63,7 +63,8 @@ void Manager::Run()
 		robot->CurrDestY = waypoints[i]->getyPos();
 		robot->currDestX = waypoints[i]->getxPos();
 		robot->curDestAngl = waypoints[i]->getEngle();
-		currentBehavior->action();
+		behavior[1]->action();
+		behavior[0]->action();
 		currentBehavior = currentBehavior->getNext();
 		localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
 	}

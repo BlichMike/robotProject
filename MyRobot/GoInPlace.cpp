@@ -19,14 +19,15 @@ bool GoInPlace::stopCondition()
 // action
 void GoInPlace::action()
 {
-	int curRobotAngl = robot->robotPositionYaw;
 	int destWayPointAngl = robot->curDestAngl;
 	//Will stop when the deg is right;
-	bool keepTurnning = curRobotAngl != destWayPointAngl;
+	bool keepTurnning = robot->getYaw() != destWayPointAngl;
 	if(keepTurnning)
 		robot->setRobotSpeed(0.0,1.0);
 	while(keepTurnning){
-		keepTurnning = curRobotAngl != destWayPointAngl;
+		robot->refreshLaserScan();
+		cout <<  robot->getYaw();
+		keepTurnning = robot->getYaw() != destWayPointAngl;
 	}
 	robot->setRobotSpeed(0.0,0.0);
 }
