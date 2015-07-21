@@ -1,7 +1,5 @@
 #include "Manager.h"
 #include "GoForward.h"
-#include "GoRight.h"
-#include "GoLeft.h"
 #include "GoInPlace.h"
 
 #include "ConfigurationManager.h"
@@ -16,18 +14,13 @@ Manager::Manager(Robot* robot) :robot(robot)
 {
 	// Behavior Creation
 	behavior[0] = new GoForward(robot);
-	behavior[1] = new GoRight(robot);
-	behavior[2] = new GoLeft(robot);
-	behavior[3] = new GoInPlace(robot);
+
+	behavior[1] = new GoInPlace(robot);
 
 	// Behavior Connection
 	behavior[0]->addNext(behavior[1]);
-	behavior[0]->addNext(behavior[2]);
-	behavior[0]->addNext(behavior[3]);
-	behavior[1]->addNext(behavior[0]);
-	behavior[2]->addNext(behavior[0]);
-	behavior[3]->addNext(behavior[0]);
 
+	behavior[1]->addNext(behavior[0]);
 	localizationManager = new LocalizationManager(robot->robotPositionX,robot->robotPositionY);
 }
 
@@ -61,22 +54,27 @@ void Manager::Run()
 	Node * endPosition = new Node(*n,endx,endy,0);
 	vector<waypoint*> waypoints = waypointsMgr->generateWayPoints(startPosition, endPosition);
 
-	for (int index=0; index< 5; index ++)
-//	cout << waypoints[index]
 	//*********************************
 
-	robot->refreshLaserScan();
-
-	if (currentBehavior->startCondition() == false)
-		return;
-
-	while (true)
+	//robot->refreshLaserScan();
+	for (int i = 0; i < waypoints.size(); i++)
 	{
 		robot->refreshLaserScan();
+		robot->CurrDestY = waypoints[i]->getyPos();
+		robot->currDestX = waypoints[i]->getxPos();
+		robot->curDestAngl = waypoints[i]->getEngle();
+		currentBehavior->action();
+		currentBehavior = currentBehavior->getNext();
+		localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+	}
+	/*while (true)
+	{
+		robot->setRobotSpeed(0.6,0.0);
+		//robot->refreshLaserScan();
 
 		while ((currentBehavior->stopCondition()) == false)
 		{
-			robot->refreshLaserScan();
+			//robot->refreshLaserScan();
 
 			if (countSlamExecutions % 10 == 0)
 			{
@@ -96,7 +94,7 @@ void Manager::Run()
 		}
 
 		currentBehavior = currentBehavior->getNext();
-	}
+	}*/
 }
 
 //D'Tor

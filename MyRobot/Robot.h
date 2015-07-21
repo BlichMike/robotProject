@@ -25,6 +25,7 @@ class Robot
 
 public:
 	float robotPositionX, robotPositionY, robotPositionYaw;
+	float currDestX, CurrDestY, curDestAngl;
 
 	Robot(char* ip,int port);
 
