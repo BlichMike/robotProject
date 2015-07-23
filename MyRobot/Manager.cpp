@@ -1,7 +1,6 @@
 #include "Manager.h"
 #include "GoForward.h"
 #include "GoInPlace.h"
-
 #include "ConfigurationManager.h"
 #include <queue>
 #include "Node.h"
@@ -63,10 +62,16 @@ void Manager::Run()
 		robot->refreshLaserScan();
 	}
 
-	//robot->refreshLaserScan();
 	for (int i = 0; i < waypoints.size(); i++)
 	{
 
+		cout << waypoints[i]->getxPos() << "," << waypoints[i]->getyPos() << endl;
+
+	}
+
+	//robot->refreshLaserScan();
+	for (int i = 0; i < waypoints.size(); i++)
+	{
 		robot->refreshLaserScan();
 		robot->CurrDestY = waypoints[i]->getyPos();
 		robot->currDestX = waypoints[i]->getxPos();
@@ -74,7 +79,7 @@ void Manager::Run()
 		behavior[1]->action();
 		behavior[0]->action();
 
-		currentBehavior = currentBehavior->getNext();
+		//currentBehavior = currentBehavior->getNext();
 		localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
 	}
 	/*while (true)

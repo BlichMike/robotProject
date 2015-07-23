@@ -113,12 +113,12 @@ int ConfigurationManager::getRobotSizeY()
 	return this->robotSizeY;
 }
 
-int ConfigurationManager::getMapResolutionCM()
+double ConfigurationManager::getMapResolutionCM()
 {
 	return this->mapResolutionCM;
 }
 
-int ConfigurationManager::getGridResolutionCM()
+double ConfigurationManager::getGridResolutionCM()
 {
 	return this->gridResolutionCM;
 }

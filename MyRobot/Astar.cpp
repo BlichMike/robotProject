@@ -82,6 +82,14 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 						// Check if there is not obsticale
 						if (!((myMap->getMapCellValue(xpos, ypos)==Obstical)))
 						{
+							// Set the new found node
+							int newXPOS = currentNode->getxPos() + horizontal * robotSizeX;
+							int newYPOS = currentNode->getyPos() + vertical * robotSizeY;
+							int newLevel = currentNode->getLevel();
+							Node * newNode = new Node(*currentNode,newXPOS,newYPOS,newLevel);
+							newNode->UpdateData(horizontal, vertical, endPoint->getxPos(),endPoint->getyPos());
+							// Check if the found Node priority is better than the old one
+
 							// Set boolean if cell was found
 							bool cellfound = false;
 							// Check this cell in the vector (if it already exists)
@@ -93,13 +101,6 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 								{
 									// Set found
 									cellfound = true;
-									// Set the new found node
-									int newXPOS = currentNode->getxPos() + horizontal * robotSizeX;
-									int newYPOS = currentNode->getyPos() + vertical * robotSizeY;
-									int newLevel = currentNode->getLevel();
-									Node * newNode = new Node(*currentNode,newXPOS,newYPOS,newLevel);
-
-									newNode->UpdateData(horizontal, vertical, endPoint->getxPos(),endPoint->getyPos());									// Check if the found Node priority is better than the old one
 									if (AllFoundNodes[index]->getPriority() > newNode->getPriority())
 									{
 										AllFoundNodes[index] = newNode;
@@ -110,14 +111,8 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 							// Check if cell was not found
 							if (!cellfound)
 							{
-								int newXPOS = currentNode->getxPos() + horizontal * robotSizeX;
-								int newYPOS = currentNode->getyPos() + vertical * robotSizeY;
-								int newLevel = currentNode->getLevel();
-								Node * newNode = new Node(*currentNode,newXPOS,newYPOS,newLevel);
-								newNode->UpdateData(horizontal, vertical, endPoint->getxPos(),endPoint->getyPos());
-									// Add new Node
+								// Add new Node
 								AllFoundNodes.push_back(newNode);
-
 
 								// Check if the cell is the destiny
 								if ((newNode->getxPos() + robotSizeX >= endPoint->getxPos()) &&
@@ -126,30 +121,35 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 									(newNode->getyPos() <= endPoint->getyPos() + robotSizeY))
 								{
 									FoundTheDestiny = true;
+									int newXPOS = endPoint->getxPos();
+									int newYPOS = endPoint->getyPos();
+									int newLevel = newNode->getLevel();
+									Node * endNode = new Node(*newNode,newXPOS,newYPOS,newLevel);
+									endNode->UpdateData(horizontal, vertical, endPoint->getxPos(),endPoint->getyPos());
+
+									AllFoundNodes.push_back(endNode);
 									break;
 								}
 							}
 						}
 					}
-
 				}
 			}
 		}
 	}
 	// After Ended Create the path
 	int indexFinal =-1;
-	int robotDistanceFromEstimate = sqrt(robotSizeX*robotSizeX+robotSizeY*robotSizeY);
 	// Search in loop where is the nodes and make of them queue
 	for (int index=0; index < (int)AllFoundNodes.size(); index++)
 	{
 		// Get the index of final node
 		// if the distancnce is 0, than you found the last one
-		if(AllFoundNodes[index]->getEstimate() <= robotDistanceFromEstimate)
+		if((AllFoundNodes[index]->getxPos() == endPoint->getxPos()) &&
+		   (AllFoundNodes[index]->getyPos() == endPoint->getyPos()))
 		{
 			indexFinal = index;
 		}
 	}
-
 
 	// Set the queue of the path
 	queue<Node*> finalPath;
@@ -159,27 +159,29 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 	// Set the last node
 	Node * current = AllFoundNodes[indexFinal];
 	finalPath.push(current);
-	Node *node = current->getLastNode();
+	//Node *node = current->getLastNode();
 	// While i dont get the start position
 	while(!start)
 	{
-		node = node->getLastNode();
+		current = current->getLastNode();
 
 		// Add to the queue
-		if (node != 0)
-		{
-			finalPath.push(node);
-			// Check if i get the fist node
-			//if (current.getLastNode().getxPos() == startPoint.getxPos() && current.getLastNode().getyPos() == startPoint.getyPos())
-			//{
-			//	start = true;
-			//}
-		}
-		else
+		if (!((current->getxPos() != startPoint->getxPos()) &&
+			(current->getyPos() != startPoint->getyPos())))
 		{
 			start = true;
 		}
+		finalPath.push(current);
 	}
+
+
+	for (int i = 0; i <finalPath.size(); i++)
+	{
+	//	cout << finalPath.front()->getxPos() << "," << finalPath.front()->getyPos() << endl;
+		finalPath.pop();
+	}
+
+
 	// Set the path from start to end
 	int sizeOfPath = finalPath.size();
 	vector<Node*> finalPathArr;

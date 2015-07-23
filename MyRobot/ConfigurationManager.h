@@ -38,8 +38,8 @@ public:
 	int getGoalY();
 	int getRobotSizeX();
 	int getRobotSizeY();
-	int getMapResolutionCM();
-	int getGridResolutionCM();
+	double getMapResolutionCM();
+	double getGridResolutionCM();
 	ConfigurationManager()
 	{
 

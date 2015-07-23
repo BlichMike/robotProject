@@ -6,6 +6,7 @@ Robot::Robot(char* ip,int port)
 {
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
+	double mapRes = configFile->getMapResolutionCM();
 	playerClient  = new PlayerClient(ip,port);
 	positionProxy = new Position2dProxy(playerClient);
 	laserProxy    = new LaserProxy(playerClient);
@@ -33,7 +34,16 @@ Robot::Robot(char* ip,int port)
 
 void Robot::setOdometry(double x, double y, double yaw)
 {
+
+	ConfigurationManager *configFile;
+	configFile = ConfigurationManager::getInstance();
+	double mapRes = configFile->getMapResolutionCM();
+	// convert to meteres
+	x = x * mapRes / 100;
+	y = y * mapRes / 100;
+	// Convert to degree
 	double w = (yaw > 180)? ((-1) * (360 - yaw)): yaw;
+	// convert to radian
 	w  = (w * M_PI ) / 180;
 	positionProxy->SetOdometry(x, y, w);
 	refreshLaserScan();

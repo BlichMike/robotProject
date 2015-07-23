@@ -39,6 +39,10 @@ public:
 
 	double getYaw(){return positionProxy->GetYaw();}
 
+	double getXPos(){return positionProxy->GetXPos();}
+
+	double getYPos(){return positionProxy->GetYPos();}
+
 	int convertIdxToDeg(int index);
 
 	void setRobotSpeed(double speed, double angle);
