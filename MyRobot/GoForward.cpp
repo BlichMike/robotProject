@@ -22,46 +22,54 @@ bool GoForward::stopCondition()
 // action
 void GoForward::action()
 {
-
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
 	Map * m = new Map();
 	int mapHeight = m->getHeight();
 	double mapRes = configFile->getMapResolutionCM();
 
-	double robotCurX = robot->getXPos();
-	double robotCurY = robot->getYPos();
-	double destWayPointX = robot->currDestX;
-	double destWayPointY = robot->CurrDestY;
+
+	int robotCurX = (int)(robot->getXPos() * 100 / mapRes);
+	int robotCurY = (int)(robot->getYPos() * 100 / mapRes);
+	int startY = robotCurY;
+	int destWayPointX = robot->currDestX;
+	int destWayPointY = robot->CurrDestY;
 	bool isGetTheDest = false;
 
-	if ((robotCurX * 100 / mapRes <= destWayPointX + 10) &&
-		(robotCurX * 100 / mapRes + 10 <= destWayPointX) &&
-		(mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) <= destWayPointY + 10) &&
-		(mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) + 10 <= destWayPointY))
+
+	if ((robotCurX <= destWayPointX + 20) &&
+		(robotCurX + 20 >= destWayPointX) &&
+		(startY + (startY - robotCurY) <= destWayPointY + 20) &&
+		(startY + (startY - robotCurY) + 20 >= destWayPointY))
 	{
 		isGetTheDest = true;
 	}
 	if (!isGetTheDest)
 	{
-		robot->setRobotSpeed(0.3,0.0);
+		robot->setRobotSpeed(0.4,0.0);
 	}
 
 	while (!isGetTheDest)
 	{
-		robotCurX = robot->getXPos();
-		robotCurY = robot->getYPos();
+		robotCurX = (int)(robot->getXPos() * 100 / mapRes);
+		robotCurY = (int)(robot->getYPos() * 100 / mapRes);
 		robot->refreshLaserScan();
-		cout <<  robotCurX * 100 / mapRes << "," << mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) << " " <<  destWayPointX + 10 << ","  << destWayPointY + 10  << endl;
 
+		//cout <<  robotCurX * 100 / mapRes << "," << mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) << " " <<  destWayPointX + 10 << ","  << destWayPointY + 10  << endl;
+		//cout <<  robotCurX << "," << mapHeight - ( mapHeight - (startY + (startY - robotCurY)))<< " " <<  destWayPointX << ","  << destWayPointY  << endl;
+		cout << (mapHeight  - startY) << " " <<  (mapHeight - robotCurY) << "*******************8" << endl;
+		cout <<  robotCurX << "," << (mapHeight  - startY) + (mapHeight - robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
 		// Check if got the point
-		if ((robotCurX * 100 / mapRes <= destWayPointX + 20) &&
-			(robotCurX * 100 / mapRes + 20 >= destWayPointX) &&
-			(mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) <= destWayPointY + 20) &&
-			(mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) + 20 >= destWayPointY))
+		if ((robotCurX <= destWayPointX + 20) &&
+			(robotCurX + 20 >= destWayPointX) &&
+			(startY + (startY - robotCurY) <= destWayPointY + 20) &&
+			(startY + (startY - robotCurY) + 20 >= destWayPointY))
 			{
 				isGetTheDest = true;
 			}
 	}
+
+	robot->robotPositionX = robotCurX;
+	robot->robotPositionY = robotCurY;
 	robot->setRobotSpeed(0.0,0.0);
 }

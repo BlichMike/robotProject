@@ -6,6 +6,7 @@
 #include "ConfigurationManager.h"
 #include <cmath>
 #include <limits>
+#include <iostream>
 using namespace std;
 
 vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
@@ -175,12 +176,13 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 	}
 
 
-	for (int i = 0; i <finalPath.size(); i++)
+/*	int si = finalPath.size();
+	for (int i = 0; i < si; i++)
 	{
-	//	cout << finalPath.front()->getxPos() << "," << finalPath.front()->getyPos() << endl;
+		cout << finalPath.front()->getxPos() << "," << finalPath.front()->getyPos() << endl;
 		finalPath.pop();
 	}
-
+*/
 
 	// Set the path from start to end
 	int sizeOfPath = finalPath.size();
@@ -191,8 +193,10 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 		Node *n = finalPath.front();
 		finalPath.pop();
 		finalPathArr.push_back(n);
-		reverse(finalPathArr.begin(), finalPathArr.end());
+
 	}
+
+	reverse(finalPathArr.begin(), finalPathArr.end());
 
 	return finalPathArr;
 }

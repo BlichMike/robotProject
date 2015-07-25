@@ -26,6 +26,7 @@ vector<waypoint*> WaypointsManager::generateWayPoints(Node * startPoint,Node * e
 	Astar * star = new Astar();
 	vector<Node*> path = star->PathPlanner(startPoint,endPoint);
 	int pathSize = path.size();
+	Map * m = new Map();
 	vector<waypoint*> resultWaypoints;
 
 	for (int index=0; index < pathSize - 1; index++)
@@ -77,7 +78,7 @@ vector<waypoint*> WaypointsManager::generateWayPoints(Node * startPoint,Node * e
 		}
 
 		// Behavior move to engle until point 2
-		waypoint * newWaypoint = new waypoint(path[index+1]->getxPos(), path[index+1]->getyPos(), engle);
+		waypoint * newWaypoint = new waypoint(path[index+1]->getxPos(),path[index+1]->getyPos(), engle);
 		resultWaypoints.push_back(newWaypoint);
 	}
 	return resultWaypoints;
