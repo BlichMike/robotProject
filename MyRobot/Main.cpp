@@ -11,7 +11,7 @@ int main()
 
 	cout<<"Enter the parameters file name\n";
 	string fileName="parameters.txt";
-	//cin>>fileName;
+	//cin>>fileName;r
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
 	configFile->readConfigFile(fileName);
@@ -20,7 +20,7 @@ int main()
 	Robot robot((char*)"localhost",6665);
 
 	/* Connection for live test */
-	//Robot robot((char*)"10.10.245.62",6665);
+	//Robot robot((char*)"10.10.245.63",6665);
 
 	Manager manager(&robot);
 	manager.Run();

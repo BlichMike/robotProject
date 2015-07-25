@@ -105,7 +105,7 @@ vector<Node*> Astar::PathPlanner(Node * startPoint,Node * endPoint)
 									if (AllFoundNodes[index]->getPriority() > newNode->getPriority())
 									{
 										AllFoundNodes[index] = newNode;
-										break;
+										//break;
 									}
 								}
 							}

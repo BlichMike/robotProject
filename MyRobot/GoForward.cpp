@@ -37,10 +37,10 @@ void GoForward::action()
 	bool isGetTheDest = false;
 
 
-	if ((robotCurX <= destWayPointX + 20) &&
-		(robotCurX + 20 >= destWayPointX) &&
-		(startY + (startY - robotCurY) <= destWayPointY + 20) &&
-		(startY + (startY - robotCurY) + 20 >= destWayPointY))
+	if ((robotCurX <= destWayPointX + 10) &&
+		(robotCurX + 10 >= destWayPointX) &&
+		(robot->robotPositionY + (startY - robotCurY) <= destWayPointY + 10) &&
+		(robot->robotPositionY + (startY - robotCurY) + 10 >= destWayPointY))
 	{
 		isGetTheDest = true;
 	}
@@ -57,19 +57,19 @@ void GoForward::action()
 
 		//cout <<  robotCurX * 100 / mapRes << "," << mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) << " " <<  destWayPointX + 10 << ","  << destWayPointY + 10  << endl;
 		//cout <<  robotCurX << "," << mapHeight - ( mapHeight - (startY + (startY - robotCurY)))<< " " <<  destWayPointX << ","  << destWayPointY  << endl;
-		cout << (mapHeight  - startY) << " " <<  (mapHeight - robotCurY) << "*******************8" << endl;
-		cout <<  robotCurX << "," << (mapHeight  - startY) + (mapHeight - robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
+		//cout << (mapHeight  - startY) << " " <<  (mapHeight - robotCurY) << "*******************8" << endl;
+		cout <<  robotCurX << "," << robot->robotPositionY + (startY - robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
 		// Check if got the point
-		if ((robotCurX <= destWayPointX + 20) &&
-			(robotCurX + 20 >= destWayPointX) &&
-			(startY + (startY - robotCurY) <= destWayPointY + 20) &&
-			(startY + (startY - robotCurY) + 20 >= destWayPointY))
+		if ((robotCurX <= destWayPointX + 10) &&
+			(robotCurX + 10 >= destWayPointX) &&
+			(robot->robotPositionY + (startY - robotCurY) <= destWayPointY + 10) &&
+			(robot->robotPositionY + (startY - robotCurY) + 10 >= destWayPointY))
 			{
 				isGetTheDest = true;
 			}
 	}
 
 	robot->robotPositionX = robotCurX;
-	robot->robotPositionY = robotCurY;
+	robot->robotPositionY = robot->robotPositionY + (startY - robotCurY);
 	robot->setRobotSpeed(0.0,0.0);
 }
