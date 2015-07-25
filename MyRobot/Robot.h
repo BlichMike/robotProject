@@ -24,8 +24,8 @@ class Robot
 	LaserProxy      * laserProxy;
 
 public:
-	double robotPositionX, robotPositionY, robotPositionYaw;
-	double currDestX, CurrDestY, curDestAngl;
+	int robotPositionX, robotPositionY, robotPositionYaw;
+	int currDestX, CurrDestY, curDestAngl;
 
 	Robot(char* ip,int port);
 
@@ -47,7 +47,7 @@ public:
 
 	void setRobotSpeed(double speed, double angle);
 
-	void getRobotDeltas(double &deltaCoordinateX,double &deltaCoordinateY,double &deltaCoordinateYaw);
+	void getRobotDeltas(int &deltaCoordinateX,int &deltaCoordinateY,double &deltaCoordinateYaw);
 
 	double getLaserByIdx(int laserIdx);
 };

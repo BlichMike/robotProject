@@ -19,15 +19,14 @@ void Particle::particleInit(float robotCoordinateX,float robotCoordinateY)
 
 	particleCoordinateYaw = DEGREES_TO_RADIANS(rand() % MAX_DEGREE);
 	particleBelief = 1.0;
-
-	particleMap.getMapCellByPosition(particleCoordinateX,particleCoordinateY,xCellCoordinateByMap,yCellCoordinateByMap);
 }
 
 // updates a particle's belief, position and map
 void Particle::updateParticle(float deltaCoordinateX, float deltaCoordinateY, float deltaCoordinateYaw, float laserScan[], int laserCount)
 {
-	particleCoordinateX   += METER_TO_CM(deltaCoordinateX);
-	particleCoordinateY   += METER_TO_CM(deltaCoordinateY);
+	ConfigurationManager * cfg = ConfigurationManager::getInstance();
+	particleCoordinateX   += deltaCoordinateX / cfg->getMapResolutionCM();
+	particleCoordinateY   += deltaCoordinateY / cfg->getMapResolutionCM();
 	particleCoordinateYaw += deltaCoordinateYaw;
 
 	double predictedBelief = particleBelief * particleProbCalc(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw);
@@ -93,7 +92,6 @@ float Particle::calcPrecisionByMap(float laserScan[], int laserCount)
 
 			particleMap.getMapCellByPosition(xObj,yObj,xCellCoordinateByMap,yCellCoordinateByMap);
 
-			// NOT NEED TO BUIELD THE MAP ....
 			if(particleMap.getMapCellValue(xCellCoordinateByMap,yCellCoordinateByMap) == OBSTACLE)
 			{
 				countHit++;

@@ -75,12 +75,13 @@ void Robot::setRobotSpeed(double speed, double angle)
 }
 
 // sets & gets the robots deltas
-void Robot::getRobotDeltas(double &deltaCoordinateX,double &deltaCoordinateY,double &deltaCoordinateYaw)
+void Robot::getRobotDeltas(int &deltaCoordinateX,int &deltaCoordinateY, double &deltaCoordinateYaw)
 {
 	refreshLaserScan();
+	ConfigurationManager *configFile = ConfigurationManager::getInstance();
 
-	float xPosition   = positionProxy->GetXPos();
-	float yPosition   = positionProxy->GetYPos();
+	float xPosition   = positionProxy->GetXPos() * 100 / configFile->getMapResolutionCM();
+	float yPosition   = positionProxy->GetYPos() * 100 / configFile->getMapResolutionCM();
 	float yawPosition = positionProxy->GetYaw();
 
 	deltaCoordinateX   = xPosition   - robotPositionX;

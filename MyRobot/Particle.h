@@ -7,6 +7,7 @@
 #define PARTICLE_H_
 
 #include "Map.h"
+#include "ConfigurationManager.h"
 
 #define MAX_DEGREE 						360
 #define LASER_ANGLE_RANGE 				240

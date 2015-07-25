@@ -43,40 +43,21 @@ void LocalizationManager::particlesUpdate(float deltaCoordinateX, float deltaCoo
 					particles.push_back(newParticle);
 			}
 		}
-
-		if (particles.size() != 0)
-			prtParticleWithMaxBelief();
 	}
 }
 
 // print max particle (max belief)
-void LocalizationManager::prtParticleWithMaxBelief()
+Particle * LocalizationManager::getParticleWithMaxBelief()
 {
-	unsigned int particleIdx;
-	int particleId;
-	Particle * particle;
+	float maxBelief = 0;
+	Particle* bestParticle = NULL;
 
-	particle = new Particle(0,0);
-	particle->particleBelief = 0;
-
-	// % 5
-	if (printParticlesInterval % 5 == 0)
-	{
-		for (particleIdx = 0; particleIdx<particles.size(); particleIdx++)
-		{
-			if (particles.at(particleIdx).particleBelief > particle->particleBelief)
-			{
-				*particle = particles.at(particleIdx);
-				particleId = particleIdx;
-			}
+	for (unsigned int i = 0; i < particles.size(); i++) {
+		if (particles[i].particleBelief >= maxBelief) {
+			maxBelief = particles[i].particleBelief;
+			bestParticle = &particles[i];
 		}
-
-		cout << endl;
-		cout<<"> Particle #"<< particleId <<" is with the maximum belief probability: "<<endl;
-		cout<<"---------------------------------------------------------------"<<endl;
-		particle->printParticleMap();
 	}
 
-	printParticlesInterval++;
-	delete particle;
+	return bestParticle;
 }

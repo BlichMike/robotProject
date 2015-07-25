@@ -26,7 +26,8 @@ Manager::Manager(Robot* robot) :robot(robot)
 // function the init the robot manager
 void Manager::Run()
 {
-	float deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw;
+	int deltaCoordinateX, deltaCoordinateY;
+	double deltaCoordinateYaw;
 	int countSlamExecutions;
 	WaypointsManager * waypointsMgr = new WaypointsManager();
 
@@ -76,11 +77,24 @@ void Manager::Run()
 		robot->CurrDestY = waypoints[i]->getyPos();
 		robot->currDestX = waypoints[i]->getxPos();
 		robot->curDestAngl = waypoints[i]->getEngle();
+
 		behavior[1]->action();
-		behavior[0]->action();
+		//behavior[0]->action();
 
 		//currentBehavior = currentBehavior->getNext();
-		localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+		if (countSlamExecutions % 10 == 0)
+		{
+			robot->getRobotDeltas(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw);
+
+			for (int i = 0; i < LASER_READ; i++)
+				laserScan[i] = robot->getLaserByIdx(i);
+
+			localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+		}
+		Particle * bestParticle = localizationManager->getParticleWithMaxBelief();
+		robot->setOdometry(bestParticle->particleCoordinateX,
+							bestParticle->particleCoordinateY,
+							bestParticle->particleCoordinateYaw);
 	}
 	/*while (true)
 	{

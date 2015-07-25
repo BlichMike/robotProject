@@ -25,7 +25,7 @@ class LocalizationManager
 
 		void particlesUpdate(float deltaCoordinateX, float deltaCoordinateY, float deltaTetha,float laserScan[], int laserCount);
 
-		void prtParticleWithMaxBelief();
+		Particle * getParticleWithMaxBelief();
 };
 
 #endif /* LOCALIZATIONMMANAGER_H_ */
