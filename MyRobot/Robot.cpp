@@ -6,7 +6,9 @@ Robot::Robot(char* ip,int port)
 {
 	ConfigurationManager *configFile;
 	configFile = ConfigurationManager::getInstance();
+
 	double mapRes = configFile->getMapResolutionCM();
+	robotRealYStartPosition = configFile->getStartLocationY();
 	playerClient  = new PlayerClient(ip,port);
 	positionProxy = new Position2dProxy(playerClient);
 	laserProxy    = new LaserProxy(playerClient);
@@ -82,11 +84,11 @@ void Robot::getRobotDeltas(int &deltaCoordinateX,int &deltaCoordinateY, double &
 
 	float xPosition   = positionProxy->GetXPos() * 100 / configFile->getMapResolutionCM();
 	float yPosition   = positionProxy->GetYPos() * 100 / configFile->getMapResolutionCM();
-	float yawPosition = positionProxy->GetYaw();
+	float yawPosition = positionProxy->GetYaw() * 180 / M_PI ;
 
 	deltaCoordinateX   = xPosition   - robotPositionX;
 	deltaCoordinateY   = yPosition   - robotPositionY;
-	deltaCoordinateYaw = yawPosition - robotPositionYaw;
+	deltaCoordinateYaw = (yawPosition - robotPositionYaw) * M_PI / 180;
 
 	robotPositionX   = xPosition;
 	robotPositionY   = yPosition;

@@ -24,7 +24,7 @@ class Robot
 	LaserProxy      * laserProxy;
 
 public:
-	int robotPositionX, robotPositionY, robotPositionYaw;
+	int robotPositionX, robotPositionY, robotPositionYaw,robotRealYStartPosition;
 	int currDestX, CurrDestY, curDestAngl;
 
 	Robot(char* ip,int port);
@@ -42,6 +42,11 @@ public:
 	double getXPos(){return positionProxy->GetXPos();}
 
 	double getYPos(){return positionProxy->GetYPos();}
+
+	double getRealYPos(int locationY){return robotRealYStartPosition + (robotRealYStartPosition - locationY);}
+
+	// Get the real map
+	double getRobotYPos(int realYOnMap){return robotRealYStartPosition - (realYOnMap - robotRealYStartPosition);}
 
 	int convertIdxToDeg(int index);
 

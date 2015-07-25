@@ -46,7 +46,7 @@ void GoForward::action()
 	}
 	if (!isGetTheDest)
 	{
-		robot->setRobotSpeed(0.4,0.0);
+		robot->setRobotSpeed(0.2,0.0);
 	}
 
 	while (!isGetTheDest)
@@ -58,18 +58,18 @@ void GoForward::action()
 		//cout <<  robotCurX * 100 / mapRes << "," << mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) << " " <<  destWayPointX + 10 << ","  << destWayPointY + 10  << endl;
 		//cout <<  robotCurX << "," << mapHeight - ( mapHeight - (startY + (startY - robotCurY)))<< " " <<  destWayPointX << ","  << destWayPointY  << endl;
 		//cout << (mapHeight  - startY) << " " <<  (mapHeight - robotCurY) << "*******************8" << endl;
-		cout <<  robotCurX << "," << robot->robotPositionY + (startY - robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
+		//cout <<  robotCurX << "," << robot->robotPositionY + (startY - robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
+		cout <<  robotCurX << "," << robot->getRealYPos(robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
 		// Check if got the point
-		if ((robotCurX <= destWayPointX + 10) &&
-			(robotCurX + 10 >= destWayPointX) &&
-			(robot->robotPositionY + (startY - robotCurY) <= destWayPointY + 10) &&
-			(robot->robotPositionY + (startY - robotCurY) + 10 >= destWayPointY))
+		if ((robotCurX + 5 >= destWayPointX) &&
+			(robotCurX <= destWayPointX + 5 ) &&
+			(robot->getRealYPos(robotCurY) + 5 >= destWayPointY) &&
+			(robot->getRealYPos(robotCurY) <= destWayPointY + 5))
 			{
 				isGetTheDest = true;
 			}
 	}
-
-	robot->robotPositionX = robotCurX;
-	robot->robotPositionY = robot->robotPositionY + (startY - robotCurY);
 	robot->setRobotSpeed(0.0,0.0);
+	robot->robotPositionX = destWayPointX;
+	robot->robotPositionY = robot->getRobotYPos(destWayPointY);
 }

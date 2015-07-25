@@ -79,7 +79,7 @@ void Manager::Run()
 		robot->curDestAngl = waypoints[i]->getEngle();
 
 		behavior[1]->action();
-		//behavior[0]->action();
+		behavior[0]->action();
 
 		//currentBehavior = currentBehavior->getNext();
 		if (countSlamExecutions % 10 == 0)
@@ -92,6 +92,9 @@ void Manager::Run()
 			localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
 		}
 		Particle * bestParticle = localizationManager->getParticleWithMaxBelief();
+		cout << "x="   << bestParticle->particleCoordinateX << endl;
+		cout << "Y="   << bestParticle->particleCoordinateY << endl;
+		cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
 		robot->setOdometry(bestParticle->particleCoordinateX,
 							bestParticle->particleCoordinateY,
 							bestParticle->particleCoordinateYaw);

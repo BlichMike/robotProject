@@ -6,6 +6,7 @@ GoInPlace::GoInPlace(Robot * robot):Behaviors(robot) {}
 // turn in place
 bool GoInPlace::startCondition()
 {
+
 	// return true only if u need to set new angel
 	return true;
 }
@@ -51,8 +52,7 @@ void GoInPlace::action()
 					keepTurnning = false;
 			}
 		}
-
 	}
 	robot->setRobotSpeed(0.0,0.0);
-	robot->robotPositionYaw = robot->getYaw();
+	robot->robotPositionYaw = destWayPointAngl;
 }
