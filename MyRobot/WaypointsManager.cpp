@@ -38,44 +38,54 @@ vector<waypoint*> WaypointsManager::generateWayPoints(Node * startPoint,Node * e
 		int pointY2 = path[index+1]->getyPos();
 
 		// Check if they have the same horizontal
-		if (pointX1== pointX2)
+		if (pointY1== pointY2)
 		{
 			// Check if up
-			if(pointY2 > pointY1)
+			if(pointX2 > pointX1)
 			{
-				engle = 90;
+				engle = 0;
 			}
 			else
 			{
-				engle = 270;
+				engle = 180;
 			}
-		}
-		// Check if the point is righter
-		if (pointX2 > pointX1)
-		{
-			// Check if upper
-			if (pointY2 > pointY1)
+		}else if(pointX1== pointX2)
 			{
-				engle = 45;
-			}
-			else
-			{
-				engle = 315;
-			}
-		}
-		// Check if lefter
-		if (pointX2 < pointX1)
-		{
-			// Check if upper
-			if (pointY2 < pointY1)
-			{
-				engle = 135;
-			}
-			else
-			{
-				engle = 225;
-			}
-		}
+				// Check if up
+				if(pointY2 > pointY1)
+				{
+					engle = 90;
+				}
+				else
+				{
+					engle = 270;
+				}
+			}else if (pointX2 > pointX1)
+				{// Check if the point is righter
+
+				// Check if upper
+				if (pointY2 > pointY1)
+				{
+					engle = 45;
+				}
+				else
+				{
+					engle = 315;
+				}
+				}else if (pointX2 < pointX1)
+					{// Check if lefter
+					// Check if upper
+					if (pointY2 < pointY1)
+					{
+						engle = 135;
+					}
+					else
+					{
+						engle = 225;
+					}
+
+					}
+
 
 		// Behavior move to engle until point 2
 		waypoint * newWaypoint = new waypoint(path[index+1]->getxPos(),path[index+1]->getyPos(), engle);
