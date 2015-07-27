@@ -8,68 +8,67 @@ GoForward::GoForward(Robot * robot):Behaviors(robot) {}
 // renturn true
 bool GoForward::startCondition()
 {
+	ConfigurationManager *configFile;
+	configFile = ConfigurationManager::getInstance();
+	double mapRes = configFile->getMapResolutionCM();
+	int robotCurX = (int)(robot->getXPos() * 100 / mapRes);
+	int robotCurY = (int)(robot->getYPos() * 100 / mapRes);
+	int destWayPointX = robot->currDestX;
+	int destWayPointY = robot->CurrDestY;
+	bool isGetTheDest = true;
+
+	robot->refreshLaserScan();
+
+	if ((robotCurX + 5 >= destWayPointX) &&
+		(robotCurX <= destWayPointX + 5 ) &&
+		(robot->getRealYPos(robotCurY) + 5 >= destWayPointY) &&
+		(robot->getRealYPos(robotCurY) <= destWayPointY + 5))
+	{
+		isGetTheDest = false;
+	}
+
 	// move
-	return true;
+	return isGetTheDest;
 }
 
 //check if to stop
 bool GoForward::stopCondition()
 {
+	ConfigurationManager *configFile;
+	configFile = ConfigurationManager::getInstance();
+	double mapRes = configFile->getMapResolutionCM();
+	int robotCurX = (int)(robot->getXPos() * 100 / mapRes);
+	int robotCurY = (int)(robot->getYPos() * 100 / mapRes);
+	int destWayPointX = robot->currDestX;
+	int destWayPointY = robot->CurrDestY;
+	bool isGetTheDest = false;
+
+	robot->refreshLaserScan();
+
+	//cout <<  robotCurX << "," << robot->getRealYPos(robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
+
+	cout <<  robotCurX << "," << robotCurY << " " <<  destWayPointX << ","  << destWayPointY  << endl;
+	// Check if got the point
+	if ((robotCurX + 5 >= destWayPointX) &&
+		(robotCurX <= destWayPointX + 5 ) &&
+		(robot->getRealYPos(robotCurY) + 5 >= destWayPointY) &&
+		(robot->getRealYPos(robotCurY) <= destWayPointY + 5))
+	{
+		isGetTheDest = true;
+	}
+
+	if (isGetTheDest)
+	{
+		robot->setRobotSpeed(0.0,0.0);
+		robot->robotPositionX = destWayPointX;
+		robot->robotPositionY = robot->getRobotYPos(destWayPointY);
+	}
 	// move until we reach the next way point
-	return true;
+	return isGetTheDest;
 }
 
 // action
 void GoForward::action()
 {
-	ConfigurationManager *configFile;
-	configFile = ConfigurationManager::getInstance();
-	Map * m = new Map();
-	int mapHeight = m->getHeight();
-	double mapRes = configFile->getMapResolutionCM();
-
-
-	int robotCurX = (int)(robot->getXPos() * 100 / mapRes);
-	int robotCurY = (int)(robot->getYPos() * 100 / mapRes);
-	int startY = robotCurY;
-	int destWayPointX = robot->currDestX;
-	int destWayPointY = robot->CurrDestY;
-	bool isGetTheDest = false;
-
-
-	if ((robotCurX <= destWayPointX + 10) &&
-		(robotCurX + 10 >= destWayPointX) &&
-		(robot->robotPositionY + (startY - robotCurY) <= destWayPointY + 10) &&
-		(robot->robotPositionY + (startY - robotCurY) + 10 >= destWayPointY))
-	{
-		isGetTheDest = true;
-	}
-	if (!isGetTheDest)
-	{
-		robot->setRobotSpeed(0.2,0.0);
-	}
-
-	while (!isGetTheDest)
-	{
-		robotCurX = (int)(robot->getXPos() * 100 / mapRes);
-		robotCurY = (int)(robot->getYPos() * 100 / mapRes);
-		robot->refreshLaserScan();
-
-		//cout <<  robotCurX * 100 / mapRes << "," << mapHeight + (mapHeight/2 -robotCurY * 100 / mapRes) << " " <<  destWayPointX + 10 << ","  << destWayPointY + 10  << endl;
-		//cout <<  robotCurX << "," << mapHeight - ( mapHeight - (startY + (startY - robotCurY)))<< " " <<  destWayPointX << ","  << destWayPointY  << endl;
-		//cout << (mapHeight  - startY) << " " <<  (mapHeight - robotCurY) << "*******************8" << endl;
-		//cout <<  robotCurX << "," << robot->robotPositionY + (startY - robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
-		cout <<  robotCurX << "," << robot->getRealYPos(robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
-		// Check if got the point
-		if ((robotCurX + 5 >= destWayPointX) &&
-			(robotCurX <= destWayPointX + 5 ) &&
-			(robot->getRealYPos(robotCurY) + 5 >= destWayPointY) &&
-			(robot->getRealYPos(robotCurY) <= destWayPointY + 5))
-			{
-				isGetTheDest = true;
-			}
-	}
-	robot->setRobotSpeed(0.0,0.0);
-	robot->robotPositionX = destWayPointX;
-	robot->robotPositionY = robot->getRobotYPos(destWayPointY);
+	robot->setRobotSpeed(0.2,0.0);
 }

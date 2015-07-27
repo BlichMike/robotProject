@@ -13,7 +13,6 @@ Manager::Manager(Robot* robot) :robot(robot)
 {
 	// Behavior Creation
 	behavior[0] = new GoForward(robot);
-
 	behavior[1] = new GoInPlace(robot);
 
 	// Behavior Connection
@@ -32,7 +31,7 @@ void Manager::Run()
 	WaypointsManager * waypointsMgr = new WaypointsManager();
 
 	countSlamExecutions = 0;
-	currentBehavior     = behavior[0];
+	currentBehavior     = behavior[1];
 
 
 	//*********************************
@@ -65,18 +64,13 @@ void Manager::Run()
 
 	for (int i = 0; i < waypoints.size(); i++)
 	{
-
 		cout << waypoints[i]->getxPos() << "," << waypoints[i]->getyPos() << endl;
-
 	}
 
+	/*
 	//robot->refreshLaserScan();
 	for (int i = 0; i < waypoints.size(); i++)
 	{
-		robot->refreshLaserScan();
-		robot->CurrDestY = waypoints[i]->getyPos();
-		robot->currDestX = waypoints[i]->getxPos();
-		robot->curDestAngl = waypoints[i]->getEngle();
 
 		behavior[1]->action();
 		behavior[0]->action();
@@ -99,6 +93,65 @@ void Manager::Run()
 							bestParticle->particleCoordinateY,
 							bestParticle->particleCoordinateYaw);
 	}
+*/
+	//*****************************************************************
+
+	int wpSize = waypoints.size();
+	int index = 0;
+	// Dont stop tring ever !
+	while(true)
+	{
+		Particle * bestParticle = NULL;
+
+		robot->refreshLaserScan();
+		if (index < wpSize)
+		{
+			robot->CurrDestY = waypoints[index]->getyPos();
+			robot->currDestX = waypoints[index]->getxPos();
+			robot->curDestAngl = waypoints[index]->getEngle();
+		}
+
+		// check if need to move
+		if (currentBehavior->startCondition())
+		{
+			// move
+			currentBehavior->action();
+
+
+			// move until you get to the end of behavior
+			while (!currentBehavior->stopCondition())
+			{
+				// do the slam
+				//currentBehavior = currentBehavior->getNext();
+				if (countSlamExecutions % 10 == 0)
+				{
+					robot->getRobotDeltas(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw);
+					for (int i = 0; i < LASER_READ; i++)
+					{
+						laserScan[i] = robot->getLaserByIdx(i);
+					}
+					localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+				}
+				//Particle * bestParticle = localizationManager->getParticleWithMaxBelief();
+				bestParticle = localizationManager->getParticleWithMaxBelief();
+			}
+			cout << "x="   << bestParticle->particleCoordinateX << endl;
+			cout << "Y="   << bestParticle->particleCoordinateY << endl;
+			cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
+			// Change the bihavior
+			currentBehavior = currentBehavior->getNext();
+			index++;
+		}
+		cout << " ********************* "  << endl;
+		robot->setOdometry(bestParticle->particleCoordinateX,
+								   bestParticle->particleCoordinateY,
+				    			   bestParticle->particleCoordinateYaw);
+
+	}
+
+	//*****************************************************************
+
+
 	/*while (true)
 	{
 		robot->setRobotSpeed(0.6,0.0);

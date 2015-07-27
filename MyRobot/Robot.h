@@ -43,7 +43,9 @@ public:
 
 	double getYPos(){return positionProxy->GetYPos();}
 
-	double getRealYPos(int locationY){return robotRealYStartPosition + (robotRealYStartPosition - locationY);}
+	double getRealYPos(int locationY){
+		return robotRealYStartPosition + (robotRealYStartPosition - locationY);
+	}
 
 	// Get the real map
 	double getRobotYPos(int realYOnMap){return robotRealYStartPosition - (realYOnMap - robotRealYStartPosition);}
