@@ -67,35 +67,6 @@ void Manager::Run()
 		cout << waypoints[i]->getxPos() << "," << waypoints[i]->getyPos() << endl;
 	}
 
-	/*
-	//robot->refreshLaserScan();
-	for (int i = 0; i < waypoints.size(); i++)
-	{
-
-		behavior[1]->action();
-		behavior[0]->action();
-
-		//currentBehavior = currentBehavior->getNext();
-		if (countSlamExecutions % 10 == 0)
-		{
-			robot->getRobotDeltas(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw);
-
-			for (int i = 0; i < LASER_READ; i++)
-				laserScan[i] = robot->getLaserByIdx(i);
-
-			localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
-		}
-		Particle * bestParticle = localizationManager->getParticleWithMaxBelief();
-		cout << "x="   << bestParticle->particleCoordinateX << endl;
-		cout << "Y="   << bestParticle->particleCoordinateY << endl;
-		cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
-		robot->setOdometry(bestParticle->particleCoordinateX,
-							bestParticle->particleCoordinateY,
-							bestParticle->particleCoordinateYaw);
-	}
-*/
-	//*****************************************************************
-
 	int wpSize = waypoints.size();
 	int index = 0;
 	// Dont stop tring ever !
