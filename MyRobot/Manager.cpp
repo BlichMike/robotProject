@@ -17,7 +17,6 @@ Manager::Manager(Robot* robot) :robot(robot)
 
 	// Behavior Connection
 	behavior[0]->addNext(behavior[1]);
-
 	behavior[1]->addNext(behavior[0]);
 	localizationManager = new LocalizationManager(robot->robotPositionX,robot->robotPositionY);
 }
@@ -32,6 +31,7 @@ void Manager::Run()
 
 	countSlamExecutions = 0;
 	currentBehavior     = behavior[1];
+
 
 
 	//*********************************
@@ -130,22 +130,23 @@ void Manager::Run()
 					{
 						laserScan[i] = robot->getLaserByIdx(i);
 					}
-					localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+				//	localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
 				}
 				//Particle * bestParticle = localizationManager->getParticleWithMaxBelief();
-				bestParticle = localizationManager->getParticleWithMaxBelief();
+			//	bestParticle = localizationManager->getParticleWithMaxBelief();
 			}
-			cout << "x="   << bestParticle->particleCoordinateX << endl;
-			cout << "Y="   << bestParticle->particleCoordinateY << endl;
-			cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
+			//cout << "x="   << bestParticle->particleCoordinateX << endl;
+		//	cout << "Y="   << bestParticle->particleCoordinateY << endl;
+		//	cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
 			// Change the bihavior
-			currentBehavior = currentBehavior->getNext();
+
 			index++;
 		}
+		currentBehavior = currentBehavior->getNext();
 		cout << " ********************* "  << endl;
-		robot->setOdometry(bestParticle->particleCoordinateX,
-								   bestParticle->particleCoordinateY,
-				    			   bestParticle->particleCoordinateYaw);
+		//robot->setOdometry(bestParticle->particleCoordinateX,
+			//					   bestParticle->particleCoordinateY,
+			//	    			   bestParticle->particleCoordinateYaw);
 
 	}
 

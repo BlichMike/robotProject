@@ -31,13 +31,7 @@ bool Behaviors::addNext(Behaviors * next)
 // get next nehavior from the list
 Behaviors * Behaviors::getNext()
 {
-	for (int i=0 ; i<_numNext ; i++)
-	{
-		if (_next[i]->startCondition())
-			return _next[i];
-	}
-
-	return NULL;
+	return _next[0];
 }
 
 //D'Tor
