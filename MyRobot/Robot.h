@@ -48,7 +48,7 @@ public:
 	}
 
 	// Get the real map
-	double getRobotYPos(int realYOnMap){return robotRealYStartPosition - (realYOnMap - robotRealYStartPosition);}
+	double getRobotYPos(double realYOnMap){return robotRealYStartPosition - (realYOnMap - robotRealYStartPosition);}
 
 	int convertIdxToDeg(int index);
 

@@ -25,8 +25,8 @@ void Particle::particleInit(float robotCoordinateX,float robotCoordinateY)
 void Particle::updateParticle(float deltaCoordinateX, float deltaCoordinateY, float deltaCoordinateYaw, float laserScan[], int laserCount)
 {
 	ConfigurationManager * cfg = ConfigurationManager::getInstance();
-	particleCoordinateX   += deltaCoordinateX / cfg->getMapResolutionCM();
-	particleCoordinateY   += deltaCoordinateY / cfg->getMapResolutionCM();
+	particleCoordinateX   += deltaCoordinateX;// / cfg->getMapResolutionCM();
+	particleCoordinateY   += deltaCoordinateY;// / cfg->getMapResolutionCM();
 	particleCoordinateYaw += deltaCoordinateYaw;
 
 	double predictedBelief = particleBelief * particleProbCalc(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw);
@@ -43,14 +43,14 @@ float Particle::particleProbCalc(float deltaCoordinateX, float deltaCoordinateY,
 		if (distance <= SAFE_DISTANCE_TO_MOVE)
 			return 1.0;
 		else
-			return (SAFE_DISTANCE_TO_MOVE + distance + 0.2);
+			return (SAFE_DISTANCE_TO_MOVE + distance + 5);
 	}
 	else if ((deltaCoordinateYaw < MAX_ACCURATE_ANGLE_TO_MOVE) && (deltaCoordinateYaw > -MAX_ACCURATE_ANGLE_TO_MOVE))
 	{
 		if (distance <= SAFE_DISTANCE_TO_MOVE)
 			return 1.0;
 		else
-			return (SAFE_DISTANCE_TO_MOVE + distance - 0.2);
+			return (SAFE_DISTANCE_TO_MOVE + distance - 5);
 	}
 
 	return 1.0;

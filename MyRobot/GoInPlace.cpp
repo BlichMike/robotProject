@@ -71,5 +71,13 @@ bool GoInPlace::stopCondition()
 // action
 void GoInPlace::action()
 {
-	robot->setRobotSpeed(0.0,0.3);
+	if (robot->robotPositionYaw < robot->curDestAngl)
+	{
+		robot->setRobotSpeed(0.0,0.3);
+	}
+	else
+	{
+		robot->setRobotSpeed(0.0,-0.3);
+	}
+
 }

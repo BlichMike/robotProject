@@ -83,9 +83,16 @@ void Robot::getRobotDeltas(int &deltaCoordinateX,int &deltaCoordinateY, double &
 	ConfigurationManager *configFile = ConfigurationManager::getInstance();
 
 	float xPosition   = positionProxy->GetXPos() * 100 / configFile->getMapResolutionCM();
-	float yPosition   = positionProxy->GetYPos() * 100 / configFile->getMapResolutionCM();
-	float yawPosition = positionProxy->GetYaw() * 180 / M_PI ;
-
+	float yPosition   = getRealYPos(positionProxy->GetYPos() * 100 / configFile->getMapResolutionCM());
+	float yawPosition=0;
+	if (positionProxy->GetYaw() < 0)
+	{
+		yawPosition = (positionProxy->GetYaw() + 2* M_PI) * 180 / M_PI;
+	}
+	else
+	{
+		yawPosition = positionProxy->GetYaw() * 180 / M_PI;
+	}
 	deltaCoordinateX   = xPosition   - robotPositionX;
 	deltaCoordinateY   = yPosition   - robotPositionY;
 	deltaCoordinateYaw = (yawPosition - robotPositionYaw) * M_PI / 180;

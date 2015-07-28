@@ -70,9 +70,9 @@ void Manager::Run()
 	int wpSize = waypoints.size();
 	int index = 0;
 	// Dont stop tring ever !
+	Particle * bestParticle = NULL;
 	while(true)
 	{
-		Particle * bestParticle = NULL;
 
 		robot->refreshLaserScan();
 		if (index < wpSize)
@@ -88,7 +88,6 @@ void Manager::Run()
 			// move
 			currentBehavior->action();
 
-
 			// move until you get to the end of behavior
 			while (!currentBehavior->stopCondition())
 			{
@@ -101,57 +100,37 @@ void Manager::Run()
 					{
 						laserScan[i] = robot->getLaserByIdx(i);
 					}
-				//	localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+	//				localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
+//					bestParticle = localizationManager->getParticleWithMaxBelief();
+				///	cout << "x="   << bestParticle->particleCoordinateX << endl;
+				//	cout << "Y="   << bestParticle->particleCoordinateY << endl;
+				//	cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
 				}
-				//Particle * bestParticle = localizationManager->getParticleWithMaxBelief();
-			//	bestParticle = localizationManager->getParticleWithMaxBelief();
+
 			}
-			//cout << "x="   << bestParticle->particleCoordinateX << endl;
-		//	cout << "Y="   << bestParticle->particleCoordinateY << endl;
-		//	cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
 			// Change the bihavior
 
+
+		}
+	//	cout << "x="   << bestParticle->particleCoordinateX << endl;
+	//	cout << "Y="   << bestParticle->particleCoordinateY << endl;
+	//	cout << "YAW=" << bestParticle->particleCoordinateYaw * 180 / M_PI << endl;
+
+		if (currentBehavior == behavior[0])
+		{
 			index++;
 		}
 		currentBehavior = currentBehavior->getNext();
+
+
 		cout << " ********************* "  << endl;
 		//robot->setOdometry(bestParticle->particleCoordinateX,
 			//					   bestParticle->particleCoordinateY,
 			//	    			   bestParticle->particleCoordinateYaw);
-
 	}
 
 	//*****************************************************************
 
-
-	/*while (true)
-	{
-		robot->setRobotSpeed(0.6,0.0);
-		//robot->refreshLaserScan();
-
-		while ((currentBehavior->stopCondition()) == false)
-		{
-			//robot->refreshLaserScan();
-
-			if (countSlamExecutions % 10 == 0)
-			{
-				robot->getRobotDeltas(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw);
-
-				for (int i = 0; i < LASER_READ; i++)
-					laserScan[i] = robot->getLaserByIdx(i);
-
-				robot->setRobotSpeed(0.6,0.0);
-
-				localizationManager->particlesUpdate(deltaCoordinateX, deltaCoordinateY, deltaCoordinateYaw, laserScan, LASER_READ);
-			}
-
-			countSlamExecutions++;
-
-			currentBehavior->action();
-		}
-
-		currentBehavior = currentBehavior->getNext();
-	}*/
 }
 
 //D'Tor
