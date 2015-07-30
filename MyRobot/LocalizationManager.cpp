@@ -46,7 +46,6 @@ void LocalizationManager::particlesUpdate(float deltaCoordinateX, float deltaCoo
 	}
 }
 
-// print max particle (max belief)
 Particle * LocalizationManager::getParticleWithMaxBelief()
 {
 	float maxBelief = 0;

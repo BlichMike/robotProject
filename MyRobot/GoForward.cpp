@@ -94,18 +94,7 @@ bool GoForward::stopCondition()
 
 	robot->refreshLaserScan();
 
-	//cout <<  robotCurX << "," << robot->getRealYPos(robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
-
 	cout <<  robotCurX << "," << robot->getRealYPos(robotCurY) << " " <<  destWayPointX << ","  << destWayPointY  << endl;
-	// Check if got the point
-	/*if ((robotCurX + 10 >= destWayPointX) &&
-		(robotCurX <= destWayPointX + 10 ) &&
-		(robot->getRealYPos(robotCurY) + 10 >= destWayPointY) &&
-		(robot->getRealYPos(robotCurY) <= destWayPointY + 10))
-	{
-		isGetTheDest = true;
-	}
-	*/
 
 	if (robot->curDestAngl==0)
 	{

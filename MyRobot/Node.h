@@ -1,10 +1,3 @@
-/*
- * Node.h
- *
- *  Created on: Jun 23, 2015
- *      Author: colman
- */
-
 #ifndef NODE_H_
 #define NODE_H_
 

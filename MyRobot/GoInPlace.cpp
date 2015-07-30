@@ -12,7 +12,6 @@ bool GoInPlace::startCondition()
 
 	if (robot->getYaw() > 0 )
 	{
-		//cout << (int)(robot->getYaw() * 180 / M_PI)  <<  "  "  <<  destWayPointAngl << endl;
 		if (((int)(robot->getYaw()*180 / M_PI) <= destWayPointAngl + 5) &&
 		     ((int)(robot->getYaw()*180 / M_PI) +5 >= destWayPointAngl))
 		{
@@ -21,7 +20,6 @@ bool GoInPlace::startCondition()
 	}
 	else
 	{
-		//cout << (int)((robot->getYaw() + 2* M_PI) * 180 / M_PI)  <<  "  "  <<  destWayPointAngl << endl;
 			if ((((int)((robot->getYaw() + 2* M_PI) * 180 / M_PI) <= destWayPointAngl +5)) &&
 			  ((int)((robot->getYaw() + 2* M_PI) * 180 / M_PI)+5 >= destWayPointAngl))
 		{

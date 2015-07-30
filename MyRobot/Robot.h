@@ -1,10 +1,3 @@
-/****************************************************************************************/
-/*                                                                                      */
-/*                               C l a s s  :  R o b o t                                */
-/*                               -----------------------                                */
-/*                                                                                      */
-/****************************************************************************************/
-
 #ifndef ROBOT_H_
 #define ROBOT_H_
 
@@ -47,7 +40,6 @@ public:
 		return robotRealYStartPosition + (robotRealYStartPosition - locationY);
 	}
 
-	// Get the real map
 	double getRobotYPos(double realYOnMap){return robotRealYStartPosition - (realYOnMap - robotRealYStartPosition);}
 
 	int convertIdxToDeg(int index);

@@ -1,10 +1,3 @@
-/*
- * ConfigurationManager.h
- *
- *  Created on: Jun 19, 2015
- *      Author: colman
- */
-
 #ifndef CONFIGURATIONMANAGER_H_
 #define CONFIGURATIONMANAGER_H_
 

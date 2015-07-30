@@ -1,10 +1,3 @@
-/*
- * WaypointsManager.h
- *
- *  Created on: Jul 19, 2015
- *      Author: colman
- */
-
 #ifndef WAYPOINTSMANAGER_H_
 #define WAYPOINTSMANAGER_H_
 #include "Node.h"

@@ -1,10 +1,3 @@
-/*
- * waypoint.h
- *
- *  Created on: Jul 21, 2015
- *      Author: colman
- */
-
 #ifndef WAYPOINT_H_
 #define WAYPOINT_H_
 

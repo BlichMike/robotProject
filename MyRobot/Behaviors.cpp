@@ -28,7 +28,7 @@ bool Behaviors::addNext(Behaviors * next)
 	return true;
 }
 
-// get next nehavior from the list
+// get next behavior from the list
 Behaviors * Behaviors::getNext()
 {
 	return _next[0];

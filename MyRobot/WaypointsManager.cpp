@@ -1,9 +1,3 @@
-/*
- * WaypointsManager.cpp
- *
- *  Created on: Jul 19, 2015
- *      Author: colman
- */
 
 #include "WaypointsManager.h"
 

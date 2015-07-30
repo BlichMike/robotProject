@@ -140,5 +140,4 @@ float Particle::convLaserIdxToAngle(int index, int xCoordinate, int radius)
 // print's the particle's map
 void Particle::printParticleMap()
 {
-	// todo FIX IN THE MAP !!!
 }
